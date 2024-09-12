@@ -39,4 +39,25 @@
   // SEARCH
   --search-results-bg: var(--color-neutral-0);
   --search-field-bg: var(--color-neutral-0);
+
+  .c-button {
+    --button-label: var(--text-default);
+    --button-label-hover: var(--text-default);
+    --button-bg: var(--color-neutral-0);
+    --button-bg-hover: var(--text-secondary);
+    --button-icon: var(--text-secondary);
+    --button-icon-hover: var(--text-default);
+  }
+
+  .c-button--ghost {
+    --button-label: var(--color-neutral-0);
+    --button-label-hover: var(--text-default);
+    --button-border: var(--color-neutral-0);
+    --button-border-hover: var(--color-neutral-0);
+    --button-bg: transparent;
+    --button-bg-hover: var(--color-neutral-0);
+    --button-icon: var(--text-secondary);
+    --button-icon-hover: var(--text-default);
+  }
+
 }

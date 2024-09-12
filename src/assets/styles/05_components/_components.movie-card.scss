@@ -1,8 +1,15 @@
 .movie-card {
   position: relative;
 
-  &:hover .movie-card__picture {
-    opacity: .5;
+  &:hover {
+    .movie-card__picture {
+      opacity: .5;
+    }
+
+    .movie-card__infos p,
+    .movie-card__infos .movie-card__link {
+      color: var(--text-secondary);
+    }
   }
 }
 
@@ -10,6 +17,7 @@
   width: 100%;
   border-radius: 1rem;
   transition: opacity var(--transition-in-out);
+  aspect-ratio: 300 / 450;
 }
 
 .movie-card__infos {
@@ -17,11 +25,19 @@
   display: flex;
   flex-direction: column;
   gap: .5rem;
+
+  p {
+    transition: color var(--transition-in-out);
+  }
 }
 
-.movie-card__link::after {
-  content: '';
-  display: block;
-  position: absolute;
-  inset: 0;
+.movie-card__link {
+  transition: color var(--transition-in-out);
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
 }

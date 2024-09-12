@@ -26,6 +26,9 @@
         <h2 class="c-h-l u-text-white u-mb-16">Synopsis</h2>
         <p class="c-text-m u-text-white">{{ movie.overview }}</p>
       </div>
+      <div v-if="reco" class="single-movie__slider">
+        <SliderMovies :title="`Vous avez aimé ${movie.title} ?`" subtitle="Ces films peuvent vous intéresser" :list="reco.results"/>
+      </div>
     </div>
   </div>
 </template>
@@ -33,12 +36,15 @@
 <script setup lang="ts">
 import {useFetch} from "../composables/fetch.ts";
 import {useRoute} from "vue-router";
+import SliderMovies from "../components/SliderMovies.vue";
 
 const route = useRoute()
 
 const { data: movie } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}?language=fr-FR`)
 const { data: videos } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/videos?language=fr-FR`)
-
+const { data: reco } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/recommendations?language=fr-FR&page=1`)
+const { data: credits } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/credits?language=fr-FR`)
+console.log(credits)
 const getDate = (date: string) => {
   const newDate = new Date(date)
   return newDate.toLocaleDateString()
@@ -89,5 +95,9 @@ const getTrailer = (videos: any) => {
 
 .single-movie__overview {
   margin-top: 2rem;
+}
+
+.single-movie__slider {
+  margin-top: 6rem;
 }
 </style>

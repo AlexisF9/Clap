@@ -1,14 +1,14 @@
 <template>
-  <div class="search">
+  <div class="c-search">
     <h2 class="c-h-xl u-text-white u-align-center u-mb-16">Rechercher</h2>
-    <form class="search__form" action="">
-      <input class="search__field" v-model="search" type="text" placeholder="Rechercher..."/>
+    <form class="c-search__form" action="">
+      <input class="c-search__field" v-model="search" type="text" placeholder="Rechercher..."/>
     </form>
-    <div class="search__results" v-if="data && data.total_results > 0">
-      <ul class="search__results-list">
+    <div class="c-search__results" v-if="data && data.total_results > 0">
+      <ul class="c-search__results-list">
         <li v-for="item in data.results.slice(0, 5)">
           <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w200${item.media_type === 'person' ? item.profile_path : item.poster_path}`" :alt="`Poster ${item.title}`" />
-          <RouterLink class="c-text-m u-text-default search__link" :to="{ name: getSinglePageUrl(item.media_type), params: { id: item.id } }">
+          <RouterLink class="c-text-m u-text-default c-search__link" :to="{ name: getSinglePageUrl(item.media_type), params: { id: item.id } }">
             {{ item.title ?? item.name }}
             <span v-if="getType(item.media_type)" class="c-text-s u-text-light">{{ getType(item.media_type) }}</span>
           </RouterLink>

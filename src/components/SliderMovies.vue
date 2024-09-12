@@ -1,15 +1,27 @@
 <template>
   <div v-if="list">
-    <div class="slider-movies__intro">
-      <h2 class="c-h-xl u-text-white">{{ title }}</h2>
-      <div>
-        <button class="u-text-white swiper-prev"><i class="fa-solid fa-chevron-left"></i></button>
-        <button class="u-text-white swiper-next"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="c-slider-movies__intro">
+      <div class="c-slider-movies__title">
+        <h2 class="c-h-xl u-text-white">{{ title }}</h2>
+        <p v-if="subtitle" class="c-text-l u-text-light">{{ subtitle }}</p>
       </div>
+      <Button label="Voir plus" type="ghost" link="cc" icon="fas fa-plus"/>
     </div>
     <Swiper
-        :slides-per-view="5"
+        class="c-slider-movies__swiper"
+        slides-per-view="auto"
         :space-between="20"
+        :breakpoints="{
+          '640': {
+            slidesPerView: 2,
+          },
+          '768': {
+            slidesPerView: 3,
+          },
+          '1024': {
+            slidesPerView: 5,
+          },
+        }"
         :modules="[Navigation]"
         :navigation="{enabled: true, prevEl: '.swiper-prev', nextEl: '.swiper-next'}"
     >
@@ -22,6 +34,10 @@
         />
       </SwiperSlide>
     </Swiper>
+    <div class="c-slider-movies__nav">
+      <button class="u-text-white swiper-prev"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="u-text-white swiper-next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
   </div>
 </template>
 
@@ -31,6 +47,7 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
 import 'swiper/css/navigation';
 import MovieCard from "./MovieCard.vue";
+import Button from "./Button.vue";
 
-defineProps(['title', 'list'])
+defineProps(['title', 'subtitle', 'list'])
 </script>

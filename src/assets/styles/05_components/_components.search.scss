@@ -1,13 +1,13 @@
-.search {
+.c-search {
   padding: 5rem 0 10rem 0;
   position: relative;
 }
 
-.search__form {
+.c-search__form {
   display: flex;
 }
 
-.search__results {
+.c-search__results {
   background-color: var(--search-results-bg);
   position: absolute;
   z-index: 9;
@@ -20,7 +20,7 @@
   margin: $space-10 auto 0 auto;
 }
 
-.search__results-list {
+.c-search__results-list {
   display: flex;
   flex-direction: column;
   gap: $space-10;
@@ -38,7 +38,7 @@
   }
 }
 
-.search__field {
+.c-search__field {
   display: flex;
   border: 0;
   background-color: var(--search-field-bg);
@@ -50,7 +50,7 @@
   color: #000;
 }
 
-.search__link {
+.c-search__link {
   display: flex;
   flex-direction: column;
 
