@@ -37,8 +37,7 @@ import { Navigation } from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
 import 'swiper/css/navigation';
-import Button from "./Button.vue";
 import PersonCard from "./PersonCard.vue";
 
-defineProps(['title', 'subtitle', 'list', 'action'])
+defineProps(['title', 'subtitle', 'list'])
 </script>
