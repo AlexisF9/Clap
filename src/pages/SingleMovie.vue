@@ -46,7 +46,7 @@
 import {useRoute} from "vue-router";
 import SliderMovies from "../components/SliderMovies.vue";
 import SliderPersons from "../components/SliderPersons.vue";
-import {ref, watchEffect} from "vue";
+import {Ref, ref, watchEffect} from "vue";
 const route = useRoute()
 
 //const { data: movie } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}?language=fr-FR`)
@@ -54,10 +54,29 @@ const route = useRoute()
 //const { data: reco } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/recommendations?language=fr-FR&page=1`)
 //const { data: credits } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/credits?language=fr-FR`)
 
-const movie = ref(null)
-const videos = ref(null)
-const reco = ref(null)
-const credits = ref(null)
+const movie: Ref<{
+  title: string,
+  tagline: string,
+  poster_path: string,
+  overview: string,
+  vote_average: any,
+  release_date: string,
+  vote_count: number,
+  genres: []
+} | null> = ref(null)
+
+const videos: Ref<{
+  results: []
+} | null> = ref(null)
+
+const reco: Ref<{
+  title: string,
+  results: []
+} | null> = ref(null)
+
+const credits: Ref<{
+  cast: []
+} | any> = ref(null)
 
 const fetchData = async(url: string, elem: any) => {
   elem.value = null
