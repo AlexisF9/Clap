@@ -22,7 +22,7 @@
 import {ref, watchEffect} from "vue";
 
 const search = ref('')
-const data = ref(null)
+const data: any = ref(null)
 
 watchEffect(async () => {
   try {
@@ -33,7 +33,6 @@ watchEffect(async () => {
   } catch (err: any) {
     console.log(err.toString())
   }
-  console.log(data)
 })
 
 const getSinglePageUrl = (type: string) => {
