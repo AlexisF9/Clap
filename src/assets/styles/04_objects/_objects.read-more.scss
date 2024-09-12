@@ -1,0 +1,33 @@
+.o-read-more {
+  &:not(.o-read-more--show) {
+    .o-read-more__less,
+    .o-read-more__text-hidden {
+      display: none;
+    }
+    .o-read-more__more,
+    .o-read-more__ellipsis {
+      display: inline;
+    }
+  }
+}
+
+.o-read-more__less {
+  display: inline;
+}
+.o-read-more__more {
+  display: none;
+}
+
+.o-read-more__text-hidden {
+  display: inline;
+}
+
+.o-read-more__button {
+  padding: 0;
+  border: 0;
+  margin-left: 0.4rem;
+}
+
+.o-read-more__ellipsis {
+  display: none;
+}

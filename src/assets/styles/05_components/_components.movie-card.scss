@@ -1,0 +1,27 @@
+.movie-card {
+  position: relative;
+
+  &:hover .movie-card__picture {
+    opacity: .5;
+  }
+}
+
+.movie-card__picture {
+  width: 100%;
+  border-radius: 1rem;
+  transition: opacity var(--transition-in-out);
+}
+
+.movie-card__infos {
+  margin-top: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.movie-card__link::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+}

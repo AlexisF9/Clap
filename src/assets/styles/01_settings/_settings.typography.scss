@@ -1,0 +1,37 @@
+@mixin text($level: 'text-m', $color: var(--text-dark), $font-weight: 400, $font-family: var(--font-primary)) {
+  font-family: $font-family;
+  font-weight: $font-weight;
+  color: $color;
+
+  @if $level == 'h-2xl' {
+    font-size: 4rem;
+    line-height: 4rem;
+  } @else if $level == 'h-xl' {
+    font-size: 3rem;
+    line-height: 3rem;
+  } @else if $level == 'h-l' {
+    font-size: 2.2rem;
+    line-height: 2.8rem;
+  } @else if $level == 'caps-m' {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    letter-spacing: 3.2px;
+    text-transform: uppercase;
+  } @else if $level == 'caps-s' {
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2.8px;
+  } @else if $level == 'text-l' {
+    font-size: 2rem;
+    line-height: 2rem;
+  } @else if $level == 'text-m' {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  } @else if $level == 'text-s' {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  } @else {
+    @error "Unknown level #{$level}.";
+  }
+}

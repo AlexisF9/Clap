@@ -1,0 +1,35 @@
+.c-text-l {
+  @include text('text-l');
+}
+
+.c-text-m {
+  @include text('text-m');
+}
+
+.c-text-m-desk {
+  @include min-width(md) {
+    @include text('text-m');
+  }
+}
+
+.c-text-m-mob {
+  @include max-width(md) {
+    @include text('text-m');
+  }
+}
+
+.c-text-s {
+  @include text('text-s');
+}
+
+.c-text-s-desk {
+  @include min-width(md) {
+    @include text('text-s');
+  }
+}
+
+.c-text-s-mob {
+  @include max-width(md) {
+    @include text('text-s');
+  }
+}

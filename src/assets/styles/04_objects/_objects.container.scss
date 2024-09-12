@@ -1,0 +1,35 @@
+.o-container {
+  max-width: var(--page-max-width);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+
+.o-container--md {
+  --page-gutter: 4rem;
+  --page-max-width: calc(120rem + 2 * var(--page-gutter));
+
+  @include max-width(lg) {
+    --page-gutter: 2rem;
+  }
+}
+
+.o-container--sm {
+  --page-gutter: 4rem;
+  --page-max-width: calc(102rem + 2 * var(--page-gutter));
+
+  @include max-width(lg) {
+    --page-gutter: 2rem;
+  }
+}
+
+.o-container--large {
+  --page-max-width: 144rem;
+  --page-gutter: 4rem;
+
+  @include max-width(lg) {
+    --page-gutter: 2rem;
+  }
+}

@@ -1,0 +1,17 @@
+@mixin custom-scrollbar($thumb: var(--text-default), $track: var(--border-default)) {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $thumb;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $track;
+  }
+}

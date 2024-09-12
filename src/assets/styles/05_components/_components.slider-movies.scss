@@ -1,0 +1,28 @@
+.slider-movies {
+
+}
+
+.slider-movies__intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+
+  div {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.swiper-prev,
+.swiper-next {
+  border: 0;
+  background-color: transparent;
+  font-size: 3rem;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}

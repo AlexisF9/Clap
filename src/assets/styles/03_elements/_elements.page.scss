@@ -1,0 +1,21 @@
+:root {
+  --vh: 1vh;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+}
+
+body {
+  @include text('text-m', var(--text-default));
+  background-color: var(--page-bg);
+  overflow-x: hidden;
+}
+
+[data-page-target="slot"] {
+  [data-page-is-loading-value="true"] & {
+    opacity: 0.5!important;
+    pointer-events: none!important;
+  }
+}

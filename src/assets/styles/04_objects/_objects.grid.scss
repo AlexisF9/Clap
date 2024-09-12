@@ -1,0 +1,53 @@
+$grid-columns: 12 !default;
+
+@mixin make-cssgrid($columns: $grid-columns, $breakpoints: $breakpoints) {
+  @if $columns > 0 {
+    @for $i from 1 through $columns {
+      .o-grid__col--#{$i} {
+        grid-column: auto / span $i;
+      }
+    }
+
+    // Start with `1` because `0` is and invalid value.
+    // Ends with `$columns - 1` because offsetting by the width of an entire row isn't possible.
+    @for $i from 1 through ($columns - 1) {
+      .o-grid__start--#{$i} {
+        grid-column-start: $i;
+      }
+    }
+  }
+
+  @each $breakpoint in map-keys($breakpoints) {
+    $infix: if($breakpoint == null, '', '--#{$breakpoint}');
+
+    @include min-width($breakpoint) {
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          .o-grid__col#{$infix}-#{$i} {
+            grid-column: auto / span $i;
+          }
+        }
+
+        // Start with `1` because `0` is and invalid value.
+        // Ends with `$columns - 1` because offsetting by the width of an entire row isn't possible.
+        @for $i from 1 through ($columns - 1) {
+          .o-grid__start#{$infix}-#{$i} {
+            grid-column-start: $i;
+          }
+        }
+      }
+    }
+  }
+}
+
+.o-grid {
+  display: grid;;
+  grid-template-columns: repeat($grid-columns, 1fr);
+  gap: var(--grid-gap);
+}
+
+.o-grid__first-position {
+  order: -1;
+}
+
+@include make-cssgrid;

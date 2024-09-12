@@ -1,0 +1,23 @@
+.c-h-2xl {
+  @include text('h-2xl', $font-weight: 500, $font-family: var(--font-secondary));
+}
+
+.c-h-xl {
+  @include text('h-xl', $font-weight: 500, $font-family: var(--font-secondary));
+}
+
+.c-h-l {
+  @include text('h-l', $font-weight: 500, $font-family: var(--font-secondary));
+}
+
+.c-h-l-desk {
+  @include min-width(md) {
+    @include text('h-l', $font-weight: 500, $font-family: var(--font-secondary));
+  }
+}
+
+.c-h-l-mob {
+  @include max-width(md) {
+    @include text('h-l', $font-weight: 500, $font-family: var(--font-secondary));
+  }
+}

@@ -1,0 +1,96 @@
+// ------------------ //
+// SETTINGS
+// ------------------ //
+@import
+"01_settings/settings.breakpoints",
+"01_settings/settings.media-queries",
+"01_settings/settings.colors",
+"01_settings/settings.spacing",
+"01_settings/settings.fonts",
+"01_settings/settings.transition",
+"01_settings/settings.typography",
+"01_settings/settings.variables",
+"01_settings/settings.radius",
+"01_settings/settings.scrollbar"
+;
+
+// ------------------ //
+// GENERICS
+// ------------------ //
+@import
+"02_generics/generics.box-sizing",
+"02_generics/generics.reset",
+"02_generics/generics.reduced-motion"
+;
+
+// ------------------ //
+// ELEMENTS
+// ------------------ //
+@import
+"03_elements/elements.page",
+"03_elements/elements.media"
+;
+
+// ------------------ //
+// OBJECTS
+// ------------------ //
+@import
+"04_objects/objects.grid",
+"04_objects/objects.read-more",
+"04_objects/objects.container"
+;
+
+// ------------------ //
+// COMPONENTS
+// ------------------ //
+@import
+"05_components/components.text",
+"05_components/components.heading",
+"05_components/components.slider-movies",
+"05_components/components.movie-card",
+"05_components/components.search"
+;
+
+// ------------------ //
+// UTILITIES
+// ------------------ //
+@import
+"06_utilities/utilities.hidden",
+"06_utilities/utilities.overflow",
+"06_utilities/utilities.sr",
+"06_utilities/utilities.colors",
+"06_utilities/utilities.margin",
+"06_utilities/utilities.font-weight",
+"06_utilities/utilities.alignment",
+"06_utilities/utilities.transform"
+;
+
+a {
+  text-decoration: none;
+}
+.link {
+  text-decoration: inherit;
+}
+
+h1, h2, h3, p, a {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}

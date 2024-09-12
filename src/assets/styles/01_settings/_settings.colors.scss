@@ -1,0 +1,42 @@
+:root {
+  // Definition (color)
+
+  --color-primary-0: rgba(0, 0, 0, 1);
+
+  --color-neutral-0: rgba(255, 255, 255, 1);
+
+  --color-neutral-1: #161616;
+  --color-neutral-2: rgba(102, 115, 132, 1);
+
+  --color-secondary-1: #F4CE14;
+
+  --color-accent-1: rgba(212, 0, 90, 1);
+  --color-accent-5: rgba(255, 131, 161, 1);
+
+  --color-alert-1-0: rgba(195, 248, 191, 1);
+  --color-alert-1-1: rgba(79, 234, 65, 1);
+  --color-alert-1-2: rgba(25, 178, 12, 1);
+  --color-alert-1-3: rgba(0, 73, 30, 1);
+  --color-alert-2-1: rgba(255, 159, 90, 1);
+  --color-alert-2-2: rgba(138, 58, 0, 1);
+  --color-alert-2-3: rgba(255, 225, 203, 1);
+  --color-alert-3: rgba(255, 67, 55, 1);
+  --color-alert-3-0: rgba(255, 216, 214, 1);
+  --color-alert-3-1: rgba(140, 8, 0, 1);
+
+  // Assignation (components)
+
+  --page-bg: var(--color-neutral-1);
+
+  --text-default: var(--color-primary-0);
+  --text-secondary: var(--color-secondary-1);
+  --text-dark: var(--color-primary-0);
+  --text-white: var(--color-neutral-0);
+  --text-light: var(--color-neutral-2);
+
+  --link: var(--color-primary-3);
+
+  // SEARCH
+  --search-results-bg: var(--color-neutral-0);
+  --search-field-bg: var(--color-neutral-0);
+}
