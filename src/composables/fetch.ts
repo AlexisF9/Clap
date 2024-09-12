@@ -2,7 +2,7 @@ import {ref, watch} from 'vue'
 
 export function useFetch(url: string) {
     const loading = ref(false)
-    const data = ref(null)
+    const data: any = ref(null)
 
     async function fetchData() {
         loading.value = true
