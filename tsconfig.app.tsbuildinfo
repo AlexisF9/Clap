@@ -1,0 +1,1 @@
+{"root":["./src/routes.ts","./src/vite-env.d.ts","./src/composables/fetch.ts","./src/App.vue","./src/components/Layout.vue","./src/components/MovieCard.vue","./src/components/Search.vue","./src/components/SliderMovies.vue","./src/pages/Home.vue","./src/pages/NotFound.vue","./src/pages/SingleMovie.vue","./src/pages/SinglePerson.vue","./src/pages/SingleTv.vue"],"version":"5.6.2"}
