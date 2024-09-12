@@ -1,43 +1,44 @@
 <template>
-  <div v-if="movie" class="o-container">
-    <div class="single-movie">
-      <div class="single-movie__titles">
-        <h1 class="c-h-2xl u-text-white">{{ movie.title }}</h1>
-        <p class="u-text-white u-mt-16" v-if="movie.tagline">{{ movie.tagline }}</p>
-        <img v-if="movie.poster_path" class="u-mt-32" :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
-      </div>
+  <div v-if="movie" class="c-single-movie">
+    <div class="c-single-movie__hero-picture">
+      <img v-if="pictures && pictures.backdrops.length > 0" :src="`https://image.tmdb.org/t/p/original${pictures.backdrops.slice(0, 1)[0].file_path}`" :alt="`Poster ${movie.title}`" />
+    </div>
 
-      <div class="single-movie__content">
-        <div class="single-movie__video" v-if="videos && getTrailer(videos.results).key">
-          <h2 class="c-h-l u-text-white u-mb-16">Bande-annonce</h2>
-          <iframe :src="`https://www.youtube.com/embed/${getTrailer(videos.results).key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+    <div class="c-single-movie__titles">
+      <h1 class="c-h-2xl u-text-white u-align-center">{{ movie.title }}</h1>
+      <p class="u-text-white u-align-center u-mt-16" v-if="movie.tagline">{{ movie.tagline }}</p>
+    </div>
 
-        <div>
-          <div class="single-movie__overview">
-            <h2 class="c-h-l u-text-white u-mb-16">Synopsis</h2>
-            <p class="c-text-m u-text-white">{{ movie.overview }}</p>
-          </div>
-
-          <div class="single-movie__infos">
-            <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
-            <div class="single-movie__infos-list">
-              <ul class="single-movie__genres">
-                <li class="c-text-l u-text-white" v-for="item in movie.genres">{{ item.name }}</li>
-              </ul>
-              <p class="c-text-l u-text-white">Date de sortie : {{ getDate(movie.release_date) }}</p>
-              <p class="c-text-l u-text-white">{{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})</p>
-            </div>
+    <div class="o-container o-container--large c-single-movie__content">
+      <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
+      <div>
+        <div class="c-single-movie__infos">
+          <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
+          <div class="c-single-movie__infos-list">
+            <ul class="c-single-movie__genres">
+              <li class="c-text-l u-text-white" v-for="item in movie.genres">{{ item.name }}</li>
+            </ul>
+            <p class="c-text-l u-text-white">Date de sortie : {{ getDate(movie.release_date) }}</p>
+            <p class="c-text-l u-text-white">{{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})</p>
           </div>
         </div>
+        <div class="c-single-movie__overview">
+          <h2 class="c-h-l u-text-white u-mb-16">Synopsis</h2>
+          <p class="c-text-m u-text-white">{{ movie.overview }}</p>
+        </div>
       </div>
+    </div>
 
-      <div v-if="credits" class="single-movie__slider-cast">
-        <SliderPersons title="Casting" :list="credits.cast"/>
-      </div>
-      <div v-if="reco" class="single-movie__slider-movies">
-        <SliderMovies :title="`Vous avez aimé ${movie.title} ?`" subtitle="Ces films peuvent vous intéresser" :list="reco.results"/>
-      </div>
+    <div class="o-container o-container--large c-single-movie__video" v-if="videos && videos.results.length > 0">
+      <h2 class="c-h-l u-text-white u-mb-16">Bande-annonce</h2>
+      <iframe :src="`https://www.youtube.com/embed/${getTrailer(videos.results).key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <div v-if="credits">
+      <SliderPersons title="Casting" :list="credits.cast"/>
+    </div>
+    <div v-if="reco">
+      <SliderMovies :title="`Vous avez aimé ${movie.title} ?`" subtitle="Ces films peuvent vous intéresser" :list="reco.results"/>
     </div>
   </div>
 </template>
@@ -64,19 +65,10 @@ const movie: Ref<{
   vote_count: number,
   genres: any
 } | null> = ref(null)
-
-const videos: Ref<{
-  results: []
-} | null> = ref(null)
-
-const reco: Ref<{
-  title: string,
-  results: []
-} | null> = ref(null)
-
-const credits: Ref<{
-  cast: []
-} | any> = ref(null)
+const videos: Ref<{ results: [] } | null> = ref(null)
+const reco: Ref<{ title: string, results: [] } | null> = ref(null)
+const credits: Ref<{ cast: [] } | any> = ref(null)
+const pictures: any = ref(null)
 
 const fetchData = async(url: string, elem: any) => {
   elem.value = null
@@ -96,7 +88,10 @@ watchEffect(() => {
   fetchData(`/videos?language=fr-FR`, videos)
   fetchData(`/recommendations?language=fr-FR&page=1`, reco)
   fetchData(`/credits?language=fr-FR`, credits)
+  fetchData(`/images`, pictures)
 })
+
+console.log('cc', pictures)
 
 const getDate = (date: string) => {
   const newDate = new Date(date)
@@ -108,65 +103,3 @@ const getTrailer = (videos: any) => {
   return trailers.reduce((r:any, o:any) => o.published_at < r.published_at ? o : r)
 }
 </script>
-
-<style lang="scss">
-.single-movie {
-  margin-top: 10rem;
-}
-
-.single-movie__titles {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.single-movie__content {
-  margin: 10rem 0 4rem 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
-}
-
-.single-movie__video {
-  iframe {
-    width: 100%;
-    aspect-ratio: 560 / 315;
-  }
-}
-
-.single-movie__infos {
-  margin-top: 2.4rem;
-
-  div {
-    display: flex;
-    gap: 1.6rem;
-  }
-
-  img {
-    max-width: 300px;
-  }
-}
-
-.single-movie__infos-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-}
-
-.single-movie__genres {
-  display: flex;
-  gap: .5rem;
-
-  li:not(:last-child)::after {
-    content: ',';
-  }
-}
-
-.single-movie__slider-cast {
-  margin-top: 10rem;
-}
-
-.single-movie__slider-movies {
-  margin-top: 10rem;
-}
-</style>
