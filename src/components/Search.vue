@@ -1,6 +1,6 @@
 <template>
   <div class="c-search">
-    <h2 class="c-h-xl u-text-white u-align-center u-mb-16">Rechercher</h2>
+    <h2 class="c-h-2xl u-text-white u-align-center u-mb-16">Rechercher</h2>
     <div v-click-outside="closeDropdown">
       <form class="c-search__form" action="">
         <input class="c-search__field" v-model="search" type="text" placeholder="Rechercher...">

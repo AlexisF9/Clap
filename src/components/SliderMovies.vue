@@ -1,5 +1,5 @@
 <template>
-  <div v-if="list" class="o-container">
+  <div v-if="list">
     <div class="c-slider-movies__intro">
       <div class="c-slider-movies__title">
         <h2 class="c-h-xl u-text-white">{{ title }}</h2>
@@ -31,13 +31,14 @@
           :title="movie.title"
           :note="movie.vote_average"
           :poster="movie.poster_path"
+          :note_count="movie.vote_count"
         />
       </SwiperSlide>
+      <div class="c-slider-movies__nav">
+        <button class="u-text-white swiper-prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="u-text-white swiper-next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
     </Swiper>
-    <div class="c-slider-movies__nav">
-      <button class="u-text-white swiper-prev"><i class="fa-solid fa-chevron-left"></i></button>
-      <button class="u-text-white swiper-next"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
   </div>
 </template>
 

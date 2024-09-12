@@ -1,5 +1,17 @@
+.c-h-3xl-desk {
+  @include min-width(md) {
+    @include text('h-3xl', $font-weight: 500, $font-family: var(--font-secondary));
+  }
+}
+
 .c-h-2xl {
   @include text('h-2xl', $font-weight: 500, $font-family: var(--font-secondary));
+}
+
+.c-h-2xl-mob {
+  @include max-width(md) {
+    @include text('h-2xl', $font-weight: 500, $font-family: var(--font-secondary));
+  }
 }
 
 .c-h-xl {

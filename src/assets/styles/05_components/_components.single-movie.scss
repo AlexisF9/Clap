@@ -63,6 +63,12 @@
   }
 }
 
+.c-single-movie__poster {
+  @include min-width(md) {
+    height: 50rem;
+  }
+}
+
 .c-single-movie__video {
   iframe {
     width: 100%;

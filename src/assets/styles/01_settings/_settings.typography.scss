@@ -3,7 +3,10 @@
   font-weight: $font-weight;
   color: $color;
 
-  @if $level == 'h-2xl' {
+  @if $level == 'h-3xl' {
+    font-size: 6rem;
+    line-height: 6rem;
+  } @else if $level == 'h-2xl' {
     font-size: 4rem;
     line-height: 4rem;
   } @else if $level == 'h-xl' {

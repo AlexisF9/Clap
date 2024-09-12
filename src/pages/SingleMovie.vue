@@ -5,12 +5,12 @@
     </div>
 
     <div class="c-single-movie__titles">
-      <h1 class="c-h-2xl u-text-white u-align-center">{{ movie.title }}</h1>
+      <h1 class="c-h-3xl-desk c-h-2xl-mob u-text-white u-align-center">{{ movie.title }}</h1>
       <p class="u-text-white u-align-center u-mt-16" v-if="movie.tagline">{{ movie.tagline }}</p>
     </div>
 
-    <div class="o-container o-container--large c-single-movie__content">
-      <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
+    <div class="o-container c-single-movie__content">
+      <img class="c-single-movie__poster" v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
       <div>
         <div class="c-single-movie__infos">
           <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
@@ -19,25 +19,25 @@
               <li class="c-text-l u-text-white" v-for="item in movie.genres">{{ item.name }}</li>
             </ul>
             <p class="c-text-l u-text-white">Date de sortie : {{ getDate(movie.release_date) }}</p>
-            <p class="c-text-l u-text-white">{{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})</p>
+            <p class="c-text-l u-text-white" v-if="movie.vote_count > 0">{{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})</p>
           </div>
         </div>
-        <div class="c-single-movie__overview">
+        <div v-if="movie.overview" class="c-single-movie__overview">
           <h2 class="c-h-l u-text-white u-mb-16">Synopsis</h2>
           <p class="c-text-m u-text-white">{{ movie.overview }}</p>
         </div>
       </div>
     </div>
 
-    <div class="o-container o-container--large c-single-movie__video" v-if="videos && videos.results.length > 0">
+    <div class="o-container c-single-movie__video" v-if="videos && videos.results.length > 0">
       <h2 class="c-h-l u-text-white u-mb-16">Bande-annonce</h2>
       <iframe :src="`https://www.youtube.com/embed/${getTrailer(videos.results).key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
-    <div v-if="credits">
+    <div v-if="credits && credits.cast.length > 0" class="o-container">
       <SliderPersons title="Casting" :list="credits.cast"/>
     </div>
-    <div v-if="reco">
+    <div v-if="reco && reco.results.length > 0" class="o-container">
       <SliderMovies :title="`Vous avez aimé ${movie.title} ?`" subtitle="Ces films peuvent vous intéresser" :list="reco.results"/>
     </div>
   </div>
@@ -91,7 +91,7 @@ watchEffect(() => {
   fetchData(`/images`, pictures)
 })
 
-console.log('cc', pictures)
+console.log('cc', credits)
 
 const getDate = (date: string) => {
   const newDate = new Date(date)
