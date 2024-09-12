@@ -43,18 +43,42 @@
 </template>
 
 <script setup lang="ts">
-import {useFetch} from "../composables/fetch.ts";
 import {useRoute} from "vue-router";
 import SliderMovies from "../components/SliderMovies.vue";
 import SliderPersons from "../components/SliderPersons.vue";
-
+import {ref, watchEffect} from "vue";
 const route = useRoute()
 
-const { data: movie } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}?language=fr-FR`)
-const { data: videos } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/videos?language=fr-FR`)
-const { data: reco } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/recommendations?language=fr-FR&page=1`)
-const { data: credits } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/credits?language=fr-FR`)
-console.log(credits)
+//const { data: movie } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}?language=fr-FR`)
+//const { data: videos } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/videos?language=fr-FR`)
+//const { data: reco } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/recommendations?language=fr-FR&page=1`)
+//const { data: credits } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}/credits?language=fr-FR`)
+
+const movie = ref(null)
+const videos = ref(null)
+const reco = ref(null)
+const credits = ref(null)
+
+const fetchData = async(url: string, elem: any) => {
+  elem.value = null
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}` + url, {
+      headers: {Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}`}
+    });
+    elem.value = await response.json();
+  } catch (err: any) {
+    console.log(err.toString())
+  }
+}
+
+watchEffect(() => {
+  fetchData(`?language=fr-FR`, movie)
+  fetchData(`/videos?language=fr-FR`, videos)
+  fetchData(`/recommendations?language=fr-FR&page=1`, reco)
+  fetchData(`/credits?language=fr-FR`, credits)
+})
+
 const getDate = (date: string) => {
   const newDate = new Date(date)
   return newDate.toLocaleDateString()
