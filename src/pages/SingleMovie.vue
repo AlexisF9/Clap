@@ -68,7 +68,7 @@ const movie: Ref<{
 const videos: Ref<{ results: [] } | null> = ref(null)
 const reco: Ref<{ title: string, results: [] } | null> = ref(null)
 const credits: Ref<{ cast: [] } | any> = ref(null)
-const pictures: any = ref(null)
+const pictures: Ref<{ backdrops: [], file_path: string } | any> = ref(null)
 
 const fetchData = async(url: string, elem: any) => {
   elem.value = null
