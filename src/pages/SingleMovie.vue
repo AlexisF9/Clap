@@ -62,7 +62,7 @@ const movie: Ref<{
   vote_average: any,
   release_date: string,
   vote_count: number,
-  genres: []
+  genres: any
 } | null> = ref(null)
 
 const videos: Ref<{
