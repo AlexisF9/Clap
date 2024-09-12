@@ -1,0 +1,35 @@
+.c-person-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-10;
+
+  h3, p {
+    transition: color var(--transition-in-out);
+  }
+
+  &:hover {
+
+    h3, p {
+      color: var(--text-secondary);
+    }
+
+    img {
+      opacity: .5;
+    }
+  }
+
+  img {
+    transition: opacity var(--transition-in-out);
+    border-radius: var(--radius-md);
+    aspect-ratio: 300/450;
+  }
+}
+
+.c-person-card__no-picture {
+  border-radius: var(--radius-md);
+  background-color: var(--person-card-no-picture-bg);
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 300/450;
+}

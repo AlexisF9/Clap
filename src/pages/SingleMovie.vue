@@ -1,32 +1,41 @@
 <template>
   <div v-if="movie" class="o-container">
     <div class="single-movie">
-      <h1 class="c-h-2xl u-text-white">{{ movie.title }}</h1>
-      <p class="u-text-white u-mt-16" v-if="movie.tagline">{{ movie.tagline }}</p>
-
-      <div class="single-movie__video" v-if="videos && getTrailer(videos.results).key">
-        <h2 class="c-h-l u-text-white u-mb-16">Bande-annonce</h2>
-        <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${getTrailer(videos.results).key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="single-movie__titles">
+        <h1 class="c-h-2xl u-text-white">{{ movie.title }}</h1>
+        <p class="u-text-white u-mt-16" v-if="movie.tagline">{{ movie.tagline }}</p>
+        <img v-if="movie.poster_path" class="u-mt-32" :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
       </div>
 
       <div class="single-movie__content">
-        <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
+        <div class="single-movie__video" v-if="videos && getTrailer(videos.results).key">
+          <h2 class="c-h-l u-text-white u-mb-16">Bande-annonce</h2>
+          <iframe :src="`https://www.youtube.com/embed/${getTrailer(videos.results).key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
         <div>
-          <img :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
+          <div class="single-movie__overview">
+            <h2 class="c-h-l u-text-white u-mb-16">Synopsis</h2>
+            <p class="c-text-m u-text-white">{{ movie.overview }}</p>
+          </div>
+
           <div class="single-movie__infos">
-            <ul class="single-movie__genres">
-              <li class="c-text-l u-text-white" v-for="item in movie.genres">{{ item.name }}</li>
-            </ul>
-            <p class="c-text-l u-text-white">Date de sortie : {{ getDate(movie.release_date) }}</p>
-            <p class="c-text-l u-text-white">{{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})</p>
+            <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
+            <div class="single-movie__infos-list">
+              <ul class="single-movie__genres">
+                <li class="c-text-l u-text-white" v-for="item in movie.genres">{{ item.name }}</li>
+              </ul>
+              <p class="c-text-l u-text-white">Date de sortie : {{ getDate(movie.release_date) }}</p>
+              <p class="c-text-l u-text-white">{{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="single-movie__overview">
-        <h2 class="c-h-l u-text-white u-mb-16">Synopsis</h2>
-        <p class="c-text-m u-text-white">{{ movie.overview }}</p>
+
+      <div v-if="credits" class="single-movie__slider-cast">
+        <SliderPersons title="Casting" :list="credits.cast"/>
       </div>
-      <div v-if="reco" class="single-movie__slider">
+      <div v-if="reco" class="single-movie__slider-movies">
         <SliderMovies :title="`Vous avez aimé ${movie.title} ?`" subtitle="Ces films peuvent vous intéresser" :list="reco.results"/>
       </div>
     </div>
@@ -37,6 +46,7 @@
 import {useFetch} from "../composables/fetch.ts";
 import {useRoute} from "vue-router";
 import SliderMovies from "../components/SliderMovies.vue";
+import SliderPersons from "../components/SliderPersons.vue";
 
 const route = useRoute()
 
@@ -61,11 +71,27 @@ const getTrailer = (videos: any) => {
   margin-top: 10rem;
 }
 
-.single-movie__video {
-  margin: 4rem 0;
+.single-movie__titles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .single-movie__content {
+  margin: 10rem 0 4rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+}
+
+.single-movie__video {
+  iframe {
+    width: 100%;
+    aspect-ratio: 560 / 315;
+  }
+}
+
+.single-movie__infos {
   margin-top: 2.4rem;
 
   div {
@@ -78,7 +104,7 @@ const getTrailer = (videos: any) => {
   }
 }
 
-.single-movie__infos {
+.single-movie__infos-list {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
@@ -93,11 +119,11 @@ const getTrailer = (videos: any) => {
   }
 }
 
-.single-movie__overview {
-  margin-top: 2rem;
+.single-movie__slider-cast {
+  margin-top: 10rem;
 }
 
-.single-movie__slider {
-  margin-top: 6rem;
+.single-movie__slider-movies {
+  margin-top: 10rem;
 }
 </style>

@@ -1,8 +1,8 @@
-.c-slider-movies {
+.c-slider-persons {
 
 }
 
-.c-slider-movies__swiper {
+.c-slider-persons__swiper {
   @include max-width(md) {
     margin: 0 calc(var(--page-gutter) * -1) ! important;
     padding: 0 var(--page-gutter) !important;
@@ -15,15 +15,13 @@
   }
 }
 
-.c-slider-movies__intro {
+.c-slider-persons__intro {
   margin-bottom: $space-24;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: center;
 }
 
-.swiper-prev,
-.swiper-next {
+.person-prev,
+.person-next {
   border: 0;
   background-color: transparent;
   font-size: 3rem;
@@ -40,11 +38,9 @@
   }
 }
 
-.c-slider-movies__nav {
+.c-slider-persons__nav {
   margin-top: $space-24;
   display: flex;
   gap: $space-10;
-  justify-content: end;
-
-
+  justify-content: center;
 }
