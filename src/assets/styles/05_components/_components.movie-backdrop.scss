@@ -5,6 +5,10 @@
   width: 100%;
   z-index: -1;
 
+  @include max-width(md) {
+    height: calc(100vh - 10rem);
+  }
+
   img {
     position: absolute;
     object-fit: cover;
@@ -12,6 +16,10 @@
     opacity: .1;
     height: calc(100vh - 18rem);
     width: 100%;
+
+    @include max-width(md) {
+      height: calc(100vh - 10rem);
+    }
   }
 
   &::before {

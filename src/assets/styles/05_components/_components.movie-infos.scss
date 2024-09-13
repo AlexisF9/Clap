@@ -3,10 +3,10 @@
   flex-direction: column;
   gap: 2rem;
 }
-
 .c-movie-infos__overview {
   max-width: 80rem;
 }
+
 
 .c-movie-infos__infos-list {
   display: flex;
@@ -16,6 +16,7 @@
 
 .c-movie-infos__genres {
   display: flex;
+  flex-wrap: wrap;
   gap: .5rem;
 
   li:not(:last-child)::after {

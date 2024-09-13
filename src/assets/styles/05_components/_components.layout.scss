@@ -1,13 +1,17 @@
 .c-layout {
   position: relative;
   padding-top: 18rem;
+
+  @include max-width(md) {
+    padding-top: 10rem;
+  }
 }
 
 .c-layout__header {
   position: fixed;
   z-index: 9;
   background: linear-gradient(0deg, rgba(22, 22, 22, 0) 0%, rgb(22, 22, 22) 100%);
-  padding: 2rem 0;
+  padding: $space-20 0;
   width: 100%;
   top: 0;
 
