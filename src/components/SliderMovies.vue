@@ -5,7 +5,7 @@
         <h2 class="c-h-xl u-text-white">{{ title }}</h2>
         <p v-if="subtitle" class="c-text-l u-text-light u-mt-12">{{ subtitle }}</p>
       </div>
-      <Button v-if="action" label="Voir plus" type="ghost" link="cc" icon="fas fa-plus"/>
+      <Button v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
     </div>
     <Swiper
         class="c-slider-movies__swiper"
