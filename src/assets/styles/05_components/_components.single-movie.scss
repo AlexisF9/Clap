@@ -1,114 +1,44 @@
 .c-single-movie {
   display: flex;
   flex-direction: column;
-  gap: 10rem;
-}
+  gap: 20rem;
 
-.c-single-movie__hero-picture {
-  position: absolute;
-  height: 100vh;
-  width: 100%;
-  z-index: -1;
-
-  img {
-    position: absolute;
-    object-fit: cover;
-    z-index: -2;
-    opacity: .1;
-    height: 100vh;
-    width: 100%;
-  }
-
-  &::before {
-    content: '';
-    background: linear-gradient(0deg, rgba(22,22,22,0) 0%, rgba(22,22,22,0.6867121848739496) 50%, rgba(22,22,22,1) 100%);
-    width: 100%;
-    height: 30%;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-  }
-
-  &::after {
-    content: '';
-    background: linear-gradient(180deg, rgba(22,22,22,0) 0%, rgba(22,22,22,0.6867121848739496) 50%, rgba(22,22,22,1) 100%);
-    width: 100%;
-    height: 30%;
-    position: absolute;
-    z-index: -1;
-    bottom: 0;
+  @include max-width(md) {
+    gap: 10rem;
   }
 }
 
 .c-single-movie__titles {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   position: relative;
-  margin-top: 10rem;
+
+  img {
+    margin-bottom: 3rem;
+    border-radius: $space-10;
+
+    @include min-width(md) {
+      width: fit-content;
+      height: 50rem;
+    }
+  }
 
   @include max-width(md) {
     padding: $space-20;
   }
 }
 
-.c-single-movie__content {
-  display: flex;
-  gap: 2rem;
-
-  @include max-width(md) {
-    flex-direction: column;
-  }
-}
-
-.c-single-movie__poster {
-  border-radius: $space-10;
-
+.c-single-movie__infos {
   @include min-width(md) {
-    height: 50rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: $space-32;
   }
-}
 
-.c-single-movie__video {
-  iframe {
-    border-radius: $space-10;
-    width: 100%;
-    aspect-ratio: 560 / 315;
-  }
-}
-
-.c-single-movie__infos-container {
-  @include min-width(md) {
+  @include max-width(lg) {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-  }
-}
-
-.c-single-movie__infos {
-  img {
-    max-width: 30rem;
-  }
-}
-
-.c-single-movie__overview {
-  margin-top: $space-24;
-  max-width: 50rem;
-}
-
-.c-single-movie__infos-list {
-  display: flex;
-  flex-direction: column;
-  gap: $space-10;
-}
-
-.c-single-movie__genres {
-  display: flex;
-  gap: .5rem;
-
-  li:not(:last-child)::after {
-    content: ',';
+    gap: $space-20;
   }
 }

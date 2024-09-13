@@ -1,0 +1,24 @@
+.c-movie-infos {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.c-movie-infos__overview {
+  max-width: 80rem;
+}
+
+.c-movie-infos__infos-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-10;
+}
+
+.c-movie-infos__genres {
+  display: flex;
+  gap: .5rem;
+
+  li:not(:last-child)::after {
+    content: ',';
+  }
+}
