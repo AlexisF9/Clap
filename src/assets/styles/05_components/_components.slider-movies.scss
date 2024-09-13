@@ -46,5 +46,7 @@
   gap: $space-10;
   justify-content: end;
 
-
+  @include max-width(md) {
+   display: none;
+  }
 }

@@ -11,7 +11,7 @@
 
     <div class="o-container c-single-movie__content">
       <img class="c-single-movie__poster" v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
-      <div>
+      <div class="c-single-movie__infos-container">
         <div class="c-single-movie__infos">
           <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
           <div class="c-single-movie__infos-list">
@@ -30,12 +30,12 @@
     </div>
 
     <div class="o-container c-single-movie__video" v-if="videos && videos.results.length > 0">
-      <h2 class="c-h-l u-text-white u-mb-16">Bande-annonce</h2>
-      <iframe :src="`https://www.youtube.com/embed/${getTrailer(videos.results).key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h2 class="c-h-xl u-text-white u-mb-16">Bande-annonce</h2>
+      <iframe :src="`https://www.youtube.com/embed/${videos.results.length > 1 ? getTrailer(videos.results).key : videos.results[0].key}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
     <div v-if="credits && credits.cast.length > 0" class="o-container">
-      <SliderPersons title="Casting" :list="credits.cast"/>
+      <SliderPersons title="Casting (VO)" :list="credits.cast"/>
     </div>
     <div v-if="reco && reco.results.length > 0" class="o-container">
       <SliderMovies :title="`Vous avez aimé ${movie.title} ?`" subtitle="Ces films peuvent vous intéresser" :list="reco.results"/>
@@ -65,7 +65,7 @@ const movie: Ref<{
   vote_count: number,
   genres: any
 } | null> = ref(null)
-const videos: Ref<{ results: [] } | null> = ref(null)
+const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
 const reco: Ref<{ title: string, results: [] } | null> = ref(null)
 const credits: Ref<{ cast: [] } | any> = ref(null)
 const pictures: Ref<{ backdrops: [], file_path: string } | any> = ref(null)
@@ -91,7 +91,7 @@ watchEffect(() => {
   fetchData(`/images`, pictures)
 })
 
-console.log('cc', credits)
+console.log('cc', videos)
 
 const getDate = (date: string) => {
   const newDate = new Date(date)
@@ -100,6 +100,6 @@ const getDate = (date: string) => {
 
 const getTrailer = (videos: any) => {
   const trailers = videos.filter((el: any) => el.type === 'Trailer')
-  return trailers.reduce((r:any, o:any) => o.published_at < r.published_at ? o : r)
+  return trailers.length > 2 ? trailers.reduce((r:any, o:any) => o.published_at < r.published_at ? o : r) : trailers[0]
 }
 </script>

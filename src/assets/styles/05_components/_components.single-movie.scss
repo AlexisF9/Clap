@@ -64,6 +64,8 @@
 }
 
 .c-single-movie__poster {
+  border-radius: $space-10;
+
   @include min-width(md) {
     height: 50rem;
   }
@@ -71,17 +73,21 @@
 
 .c-single-movie__video {
   iframe {
+    border-radius: $space-10;
     width: 100%;
     aspect-ratio: 560 / 315;
   }
 }
 
-.c-single-movie__infos {
-  div {
+.c-single-movie__infos-container {
+  @include min-width(md) {
     display: flex;
-    gap: $space-16;
+    flex-direction: column;
+    justify-content: center;
   }
+}
 
+.c-single-movie__infos {
   img {
     max-width: 30rem;
   }
@@ -95,7 +101,7 @@
 .c-single-movie__infos-list {
   display: flex;
   flex-direction: column;
-  gap: $space-14;
+  gap: $space-10;
 }
 
 .c-single-movie__genres {
