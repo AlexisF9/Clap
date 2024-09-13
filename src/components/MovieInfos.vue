@@ -3,12 +3,37 @@
     <div>
       <h2 class="c-h-l u-text-white u-mb-16">Informations</h2>
       <div class="c-movie-infos__infos-list">
-        <ul class="c-movie-infos__genres">
-          <li class="c-text-l u-text-white" v-for="item in genres">{{ item.name }}</li>
+        <ul>
+          <li class="u-text-white" v-if="genres">
+            <ul class="c-movie-infos__genres">
+              <li class="c-text-m u-text-white" v-for="item in genres">{{ item.name }}</li>
+            </ul>
+          </li>
+          <li class="c-text-m u-text-white" v-if="release_date">Date de sortie : {{ getDate(release_date) }}</li>
+          <li class="c-text-m u-text-white" v-if="budget && budget > 0">
+            Budget :
+            {{ budget.toLocaleString('fr-FR', {
+            style: 'currency',
+            currency: 'EUR',
+          }) }}
+          </li>
+          <li class="c-text-m u-text-white" v-if="revenue && revenue > 0">
+            Box-office :
+            {{ revenue.toLocaleString('fr-FR', {
+            style: 'currency',
+            currency: 'EUR',
+          }) }}
+          </li>
+          <li class="c-text-m u-text-white" v-if="first_air_date">Première diffusion : {{ getDate(first_air_date) }}</li>
+          <li class="c-text-m u-text-white" v-if="last_air_date">Dernière diffusion : {{ getDate(last_air_date) }}</li>
+          <li class="c-text-m u-text-white c-movie-infos__networks" v-if="networks && networks.length > 0">Diffusé sur <span v-for="network in networks">{{ network.name }}</span></li>
+          <li class="c-text-m u-text-white" v-if="seasons_count">
+            {{ seasons_count }} {{ seasons_count > 1 ? 'saisons' : 'saison' }}
+            <span v-if="episodes_count">
+              ({{ episodes_count }} {{ episodes_count > 1 ? 'épisodes' : 'épisode'}})
+            </span>
+          </li>
         </ul>
-        <p class="c-text-l u-text-white" v-if="release_date">Date de sortie : {{ getDate(release_date) }}</p>
-        <p class="c-text-l u-text-white" v-else-if="first_air_date">Première diffusion : {{ getDate(first_air_date) }}</p>
-        <p class="c-text-l u-text-white" v-if="vote_count > 0">{{ Math.round(vote_average * 10) / 10 }}/10 ({{ vote_count }})</p>
       </div>
     </div>
     <div v-if="overview" class="c-movie-infos__overview">
@@ -19,10 +44,33 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['title', 'poster_path', 'genres', 'vote_count', 'release_date', 'vote_average', 'first_air_date', 'overview'])
+interface Props {
+  genres?: { name: string }[]
+  release_date?: string,
+  first_air_date?: string,
+  last_air_date?: string,
+  seasons_count?: number,
+  episodes_count?: number,
+  vote_count?: number,
+  vote_average?: number,
+  overview?: string,
+  networks?: { name: string }[]
+  revenue?: number
+  budget?: number
+}
+defineProps<Props>()
 
 const getDate = (date: string) => {
+  const now = Date.now();
   const newDate = new Date(date)
-  return newDate.toLocaleDateString()
+  //const seconds = (Date.parse(date) - now) / 1000;
+  const daysBefore = Math.floor(((Date.parse(date) - now) / 1000) / (3600 * 24))
+
+  //const d = Math.floor(seconds / (3600*24));
+  //const h = Math.floor(seconds % (3600*24) / 3600);
+  //const m = Math.floor(seconds % 3600 / 60);
+  //const s = Math.floor(seconds % 60);
+  //console.log(d, h, m, s)
+  return newDate.toLocaleDateString() + (daysBefore > 1 ? ` (${daysBefore} jours)` : '')
 }
 </script>

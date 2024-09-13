@@ -8,7 +8,9 @@
     <div class="o-container c-single-movie__titles">
       <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
       <h1 class="c-h-3xl-desk c-h-2xl-mob u-text-white">{{ movie.title }}</h1>
-      <p class="u-text-white u-mt-16" v-if="movie.tagline">{{ movie.tagline }}</p>
+      <p class="c-text-l u-text-white u-mt-16" v-if="movie.vote_average && movie.vote_count && movie.vote_count > 0">
+        {{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})
+      </p>
     </div>
 
     <div class="o-container c-single-movie__infos">
@@ -17,10 +19,10 @@
       </div>
       <MovieInfos
         :genres="movie.genres"
-        :vote_count="movie.vote_count"
         :release_date="movie.release_date"
-        :vote_average="movie.vote_average"
         :overview="movie.overview"
+        :revenue="movie.revenue"
+        :budget="movie.budget"
       />
     </div>
 
@@ -46,13 +48,14 @@ const route = useRoute()
 const movie: Ref<{
   title: string,
   backdrop_path: string,
-  tagline: string,
   poster_path: string,
   overview: string,
-  vote_average: any,
+  vote_average: number,
   release_date: string,
   vote_count: number,
-  genres: any
+  genres: any,
+  revenue: number,
+  budget: number
 } | null> = ref(null)
 const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
 const reco: Ref<{ title: string, results: [] } | null> = ref(null)
@@ -77,4 +80,7 @@ watchEffect(() => {
   fetchData(`/recommendations?language=fr-FR&page=1`, reco)
   fetchData(`/credits?language=fr-FR`, credits)
 })
+
+console.log(movie)
+
 </script>
