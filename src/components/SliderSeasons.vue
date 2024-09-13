@@ -1,10 +1,10 @@
 <template>
   <div v-if="list">
-    <div class="c-slider-persons__intro">
+    <div class="c-slider-seasons__intro">
       <h2 class="c-h-xl u-text-white">{{ title }}</h2>
     </div>
     <Swiper
-        class="c-slider-persons__swiper"
+        class="c-slider-seasons__swiper"
         slides-per-view="auto"
         :space-between="20"
         :breakpoints="{
@@ -24,7 +24,7 @@
       <SwiperSlide v-for="season in list.filter((el: any) => el.season_number > 0)">
         <SeasonCard :title="season.name" :poster="season.poster_path" :episodes_count="season.episode_count" />
       </SwiperSlide>
-      <div class="c-slider-persons__nav">
+      <div class="c-slider-seasons__nav">
         <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="u-text-white person-next"><i class="fa-solid fa-chevron-right"></i></button>
       </div>

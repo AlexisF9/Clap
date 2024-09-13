@@ -1,25 +1,26 @@
 .c-movie-backdrop {
   position: absolute;
   top: 0;
-  height: calc(100vh - 18rem);
+  height: 100vh;
   width: 100%;
   z-index: -1;
-
-  @include max-width(md) {
-    height: calc(100vh - 10rem);
-  }
 
   img {
     position: absolute;
     object-fit: cover;
-    z-index: -2;
-    opacity: .1;
-    height: calc(100vh - 18rem);
+    z-index: -3;
+    height: 100vh;
     width: 100%;
+  }
 
-    @include max-width(md) {
-      height: calc(100vh - 10rem);
-    }
+  span {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-color: var(--page-bg);
+    opacity: .9;
+    z-index: -2;
   }
 
   &::before {

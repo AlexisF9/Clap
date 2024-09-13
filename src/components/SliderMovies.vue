@@ -1,5 +1,5 @@
 <template>
-  <div v-if="list">
+  <div v-if="list" class="c-slider-movies">
     <div class="c-slider-movies__intro">
       <div class="c-slider-movies__title">
         <h2 class="c-h-xl u-text-white">{{ title }}</h2>

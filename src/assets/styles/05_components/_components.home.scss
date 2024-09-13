@@ -1,0 +1,20 @@
+.c-home {
+  padding-top: 60vh;
+}
+
+.c-home__backdrop-swiper {
+  position: absolute!important;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.c-home__swiper-content {
+  padding-top: 15vh;
+  position: relative;
+}
+
+.c-home__main {
+  position: relative;
+  z-index: 1;
+}
