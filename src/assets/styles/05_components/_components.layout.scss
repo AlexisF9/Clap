@@ -1,0 +1,25 @@
+.c-layout {
+  position: relative;
+  padding-top: 8rem;
+}
+
+.c-layout__header {
+  position: fixed;
+  z-index: 9;
+  background: linear-gradient(0deg, rgba(22, 22, 22, 0) 0%, rgb(22, 22, 22) 100%);
+  padding: 2rem 0;
+  width: 100%;
+  top: 0;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: $space-32;
+  }
+}
+
+.c-layout__header-links {
+  display: flex;
+  align-items: center;
+  gap: $space-16;
+}

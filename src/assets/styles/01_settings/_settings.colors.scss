@@ -7,6 +7,7 @@
   --color-neutral-0: rgba(255, 255, 255, 1);
 
   --color-neutral-1: rgba(22, 22, 22, 1);
+  --color-neutral-1-50: rgba(22, 22, 22, .5);
   --color-neutral-2: rgba(102, 115, 132, 1);
   --color-neutral-3: rgba(167, 177, 192, 1);
 
@@ -26,7 +27,6 @@
 
   --text-default: var(--color-primary-0);
   --text-secondary: var(--color-secondary-1);
-  --text-dark: var(--color-primary-0);
   --text-white: var(--color-neutral-0);
   --text-light: var(--color-neutral-3);
 

@@ -2,7 +2,7 @@
   <Layout>
     <template #header>
       <h1 class="c-h-2xl u-text-secondary"><RouterLink :to="{ name: 'home' }">CLAP</RouterLink></h1>
-      <div>
+      <div class="c-layout__header-links">
         <RouterLink class="c-text-m u-text-white" to="">Films</RouterLink>
         <RouterLink class="c-text-m u-text-white" to="">Séries</RouterLink>
       </div>

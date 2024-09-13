@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <div class="o-container">
-      <header v-if="$slots.header">
+  <div class="c-layout">
+    <header class="c-layout__header" v-if="$slots.header">
+      <div class="o-container">
         <slot name="header"></slot>
-      </header>
-    </div>
-
+      </div>
+    </header>
     <main v-if="$slots.main">
       <slot name="main"></slot>
     </main>
-    <footer v-if="$slots.footer">
+    <footer class="c-layout__footer" v-if="$slots.footer">
       <slot name="footer"></slot>
     </footer>
   </div>
