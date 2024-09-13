@@ -25,7 +25,7 @@
           }) }}
           </li>
           <li class="c-text-m u-text-white" v-if="first_air_date">Première diffusion : {{ getDate(first_air_date) }}</li>
-          <li class="c-text-m u-text-white" v-if="last_air_date">Dernière diffusion : {{ getDate(last_air_date) }}</li>
+          <li class="c-text-m u-text-white" v-if="first_air_date && last_air_date && last_air_date != first_air_date">Dernière diffusion : {{ getDate(last_air_date) }}</li>
           <li class="c-text-m u-text-white c-movie-infos__networks" v-if="networks && networks.length > 0">Diffusé sur <span v-for="network in networks">{{ network.name }}</span></li>
           <li class="c-text-m u-text-white" v-if="seasons_count">
             {{ seasons_count }} {{ seasons_count > 1 ? 'saisons' : 'saison' }}

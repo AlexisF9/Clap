@@ -30,6 +30,8 @@
 
 .c-layout__footer {
   display: flex;
+  flex-direction: column;
+  gap: $space-20;
   justify-content: center;
   align-items: center;
   width: 100%;

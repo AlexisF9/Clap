@@ -24,11 +24,11 @@
       <SwiperSlide v-for="cast in list">
         <PersonCard :person="cast" />
       </SwiperSlide>
+      <div class="c-slider-persons__nav">
+        <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="u-text-white person-next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
     </Swiper>
-    <div class="c-slider-persons__nav">
-      <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>
-      <button class="u-text-white person-next"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
   </div>
 </template>
 

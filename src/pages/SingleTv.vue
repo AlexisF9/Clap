@@ -30,6 +30,10 @@
     <div class="o-container" v-if="tv.seasons">
       <SliderSeasons title="Saisons" :list="tv.seasons" />
     </div>
+
+    <div v-if="credits && credits.cast.length > 0" class="o-container">
+      <SliderPersons title="Casting (VO)" :list="credits.cast"/>
+    </div>
   </div>
 </template>
 
@@ -40,6 +44,7 @@ import {ref, Ref, watchEffect} from "vue";
 import MovieInfos from "../components/MovieInfos.vue";
 import SliderSeasons from "../components/SliderSeasons.vue";
 import Trailer from "../components/Trailer.vue";
+import SliderPersons from "../components/SliderPersons.vue";
 const route = useRoute()
 
 const tv: Ref<{
@@ -58,6 +63,7 @@ const tv: Ref<{
   networks: []
 } | null> = ref(null)
 const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
+const credits: Ref<{ cast: [] } | any> = ref(null)
 
 const fetchData = async(url: string, elem: any) => {
   elem.value = null
@@ -75,5 +81,7 @@ const fetchData = async(url: string, elem: any) => {
 watchEffect(() => {
   fetchData(`?language=fr-FR`, tv)
   fetchData(`/videos?language=fr-FR`, videos)
+  fetchData(`/credits?language=fr-FR`, credits)
 })
+console.log(credits)
 </script>

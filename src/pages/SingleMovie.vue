@@ -80,7 +80,4 @@ watchEffect(() => {
   fetchData(`/recommendations?language=fr-FR&page=1`, reco)
   fetchData(`/credits?language=fr-FR`, credits)
 })
-
-console.log(movie)
-
 </script>

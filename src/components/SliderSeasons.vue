@@ -24,11 +24,11 @@
       <SwiperSlide v-for="season in list.filter((el: any) => el.season_number > 0)">
         <SeasonCard :title="season.name" :poster="season.poster_path" :episodes_count="season.episode_count" />
       </SwiperSlide>
+      <div class="c-slider-persons__nav">
+        <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="u-text-white person-next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
     </Swiper>
-    <div class="c-slider-persons__nav">
-      <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>
-      <button class="u-text-white person-next"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
   </div>
 </template>
 
