@@ -11,6 +11,10 @@
     <template #main>
       <RouterView/>
     </template>
+
+    <template #footer>
+      <h2 class="c-h-2xl u-text-white">CLAP</h2>
+    </template>
   </Layout>
 </template>
 

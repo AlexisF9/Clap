@@ -62,4 +62,6 @@ watchEffect(() => {
   fetchData(`/videos?language=fr-FR`, videos)
 })
 
+console.log(tv, videos)
+
 </script>
