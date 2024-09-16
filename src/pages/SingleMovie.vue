@@ -36,14 +36,14 @@
 </template>
 
 <script setup lang="ts">
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import SliderMovies from "../components/SliderMovies.vue";
 import SliderPersons from "../components/SliderPersons.vue";
 import {Ref, ref, watchEffect} from "vue";
 import MovieBackdrop from "../components/MovieBackdrop.vue";
 import Trailer from "../components/Trailer.vue";
 import MovieInfos from "../components/MovieInfos.vue";
-const route = useRoute()
+const router = useRouter()
 
 const movie: Ref<{
   title: string,
@@ -65,7 +65,7 @@ const fetchData = async(url: string, elem: any) => {
   elem.value = null
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_TMBD_URL}/movie/${route.params.id}` + url, {
+    const response = await fetch(`${import.meta.env.VITE_TMBD_URL}/movie/${router.currentRoute.value.params.id}` + url, {
       headers: {Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}`}
     });
     elem.value = await response.json();
