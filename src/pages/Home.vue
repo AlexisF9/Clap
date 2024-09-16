@@ -33,14 +33,15 @@
     <div class="o-container c-home__main">
       <Search/>
 
-      <div class="u-mt-48">
+      <div class="u-mt-64">
         <SliderMovies
             title="Populaire cette semaine"
             :list="trending ? trending.results : []"
             :loading="loading"
             :filter="[{value: 'movie', label: 'Film'}, {value: 'tv', label: 'Série'}]"
             :type="`${trendingType && trendingType === 'tv' ? 'tv' : 'movie'}`"
-            v-model:select="trendingType"/>
+            v-model:select="trendingType"
+        />
       </div>
     </div>
   </div>

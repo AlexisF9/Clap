@@ -1,0 +1,13 @@
+.c-toggle-buttons {
+  border: 2px solid var(--toggle-buttons-border);
+  border-radius: 10rem;
+  width: fit-content;
+}
+.c-toggle-buttons__cta {
+  padding: .5rem 1rem;
+
+  &.is-active {
+    background-color: var(--toggle-buttons-active-bg);
+    border-radius: 10rem;
+  }
+}

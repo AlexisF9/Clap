@@ -39,6 +39,10 @@
   // PERSON CARD
   --person-card-no-picture-bg: var(--color-primary-0-50);
 
+  // TOGGLE BUTTONS
+  --toggle-buttons-border: var(--color-neutral-0);
+  --toggle-buttons-active-bg: var(--color-secondary-1);
+
   .c-button {
     --button-label: var(--text-default);
     --button-label-hover: var(--text-default);

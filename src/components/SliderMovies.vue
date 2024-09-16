@@ -4,13 +4,18 @@
       <div>
         <div class="c-slider-movies__title">
           <h2 class="c-h-xl u-text-white">{{ title }}</h2>
-          <select class="c-slider-movies__select" v-model="select" v-if="filter && filter.length > 0">
-            <option v-for="item in filter" :value="item.value">{{ item.label }}</option>
-          </select>
+          <div class="c-toggle-buttons">
+            <button
+                :class="set_type === item.value ? 'c-toggle-buttons__cta is-active' : 'c-toggle-buttons__cta u-text-white'"
+                v-for="item in filter"
+                @click="set_type = item.value"
+            >
+              {{ item.label }}
+            </button>
+          </div>
         </div>
         <p v-if="subtitle" class="c-text-l u-text-light u-mt-12">{{ subtitle }}</p>
       </div>
-
       <Button v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
     </div>
     <Swiper
@@ -58,7 +63,7 @@ import 'swiper/css/navigation';
 import MovieCard from "./MovieCard.vue";
 import Button from "./Button.vue";
 
-const select = defineModel('select')
+const set_type = defineModel('select')
 
 interface Props {
   title: string,
