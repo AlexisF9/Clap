@@ -56,11 +56,11 @@ import 'swiper/css/effect-fade';
 import Search from "../components/Search.vue";
 import SliderMovies from "../components/SliderMovies.vue";
 import Button from "../components/Button.vue";
-import {ref, watchEffect} from "vue";
+import {Ref, ref, watchEffect} from "vue";
 
 const { data: movies } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/now_playing?language=fr-FR&page=1`)
 
-const trending = ref(null)
+const trending: Ref<{ results: any } | null> = ref(null)
 const loading = ref(false)
 const trendingType = ref('movie')
 
@@ -83,4 +83,6 @@ const trendingFetch = async(url: string, elem: any) => {
 watchEffect(() => {
   trendingFetch(`/trending/${trendingType.value}/week?language=fr-FR'`, trending)
 })
+
+console.log(trending)
 </script>
