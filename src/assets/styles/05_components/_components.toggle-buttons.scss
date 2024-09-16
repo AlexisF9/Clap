@@ -19,6 +19,7 @@
   }
 
   &.is-active {
+    color: var(--toggle-buttons-active);
     background-color: var(--toggle-buttons-active-bg);
     border-radius: 10rem;
   }
