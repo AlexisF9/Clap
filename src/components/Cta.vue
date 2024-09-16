@@ -1,6 +1,6 @@
 <template>
   <RouterLink
-      :class="`c-button ${types[type as keyof typeof types]} ${sizes[size as keyof typeof sizes]}`"
+      :class="`c-cta ${types[type as keyof typeof types]} ${sizes[size as keyof typeof sizes]}`"
       v-if="link"
       :to="link"
   >
@@ -8,7 +8,7 @@
     {{ label }}
     <i v-if="icon && iconPosition === 'right'" :class="icon"></i>
   </RouterLink>
-  <button :class="`c-button`" v-else><i v-if="icon" :class="icon"></i>{{ label }}</button>
+  <button :class="`c-cta`" v-else><i v-if="icon" :class="icon"></i>{{ label }}</button>
 </template>
 
 <script setup lang="ts">
@@ -25,12 +25,12 @@ interface Props {
 defineProps<Props>()
 
 const types = ref({
-  plain: 'c-button--plain',
-  ghost: 'c-button--ghost'
+  plain: 'c-cta--plain',
+  ghost: 'c-cta--ghost'
 })
 
 const sizes = ref({
-  md: 'c-button--m',
-  lg: 'c-button--l'
+  md: 'c-cta--m',
+  lg: 'c-cta--l'
 })
 </script>

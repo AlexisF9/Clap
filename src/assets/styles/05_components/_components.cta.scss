@@ -1,4 +1,4 @@
-.c-button {
+.c-cta {
   color: var(--button-label);
   background-color: var(--button-bg);
   border-radius: var(--radius-full);
@@ -30,13 +30,13 @@
   }
 }
 
-.c-button--m {
+.c-cta--m {
   gap: 0.8rem;
   padding: 1rem 2.4rem;
   @include text('text-s', var(--button-label));
 }
 
-.c-button--l {
+.c-cta--l {
   gap: 0.8rem;
   padding: 1.4rem 2.4rem;
   @include text('text-m', var(--button-label));

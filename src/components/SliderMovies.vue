@@ -1,25 +1,13 @@
 <template>
-  <div class="c-slider-movies">
+  <div class="c-slider-movies" v-if="list">
     <div class="c-slider-movies__intro">
       <div>
-        <div class="c-slider-movies__title">
-          <h2 class="c-h-xl u-text-white">{{ title }}</h2>
-          <div class="c-toggle-buttons">
-            <button
-                :class="set_type === item.value ? 'c-toggle-buttons__cta is-active' : 'c-toggle-buttons__cta u-text-white'"
-                v-for="item in filter"
-                @click="set_type = item.value"
-            >
-              {{ item.label }}
-            </button>
-          </div>
-        </div>
+        <h2 class="c-h-xl u-text-white">{{ title }}</h2>
         <p v-if="subtitle" class="c-text-l u-text-light u-mt-12">{{ subtitle }}</p>
       </div>
-      <Button class="c-slider-movies__more-cta" v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
+      <Cta class="c-slider-movies__more-cta" v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
     </div>
     <Swiper
-        v-if="!loading && list"
         class="c-slider-movies__swiper"
         slides-per-view="auto"
         :space-between="20"
@@ -40,11 +28,10 @@
       <SwiperSlide v-for="movie in list">
         <MovieCard
           :id="movie.id"
-          :title="movie.title ?? movie.name"
+          :title="movie.title"
           :note="movie.vote_average"
           :poster="movie.poster_path"
           :note_count="movie.vote_count"
-          :type="type === 'tv' ? 'tv' : 'movie'"
         />
       </SwiperSlide>
       <div class="c-slider-movies__nav">
@@ -61,18 +48,13 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
 import 'swiper/css/navigation';
 import MovieCard from "./MovieCard.vue";
-import Button from "./Button.vue";
-
-const set_type = defineModel('select')
+import Cta from "./Cta.vue";
 
 interface Props {
   title: string,
   subtitle?: string,
   list: any[],
-  action?: { label: string, link: string },
-  filter?: { value: string, label: string }[],
-  loading?: any
-  type?: string
+  action?: { label: string, link: string }
 }
 defineProps<Props>()
 </script>

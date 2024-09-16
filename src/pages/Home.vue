@@ -14,7 +14,7 @@
       <SwiperSlide v-for="movie in movies.results">
         <div class="o-container c-home__swiper-content">
           <h2 class="c-h-2xl u-text-white u-mb-24">En ce moment... <span class="u-text-secondary">{{ movie.title }}</span></h2>
-          <Button
+          <Cta
               label="En voir plus"
               size="lg"
               type="plain"
@@ -34,12 +34,13 @@
       <Search/>
 
       <div class="u-mt-64">
-        <SliderMovies
+        <SliderTabsMovies
             title="Populaire cette semaine"
-            :list="trending ? trending.results : []"
-            :loading="loading"
-            :filter="[{value: 'movie', label: 'Film'}, {value: 'tv', label: 'Série'}]"
-            :type="`${trendingType && trendingType === 'tv' ? 'tv' : 'movie'}`"
+            :tabs="[
+                { value: 'movie', label: 'Film', list: trendingMovies ? trendingMovies.results : [] },
+                { value: 'tv', label: 'Série', list: trendingTv ? trendingTv.results : [] }
+            ]"
+            :type="trendingType"
             v-model:select="trendingType"
         />
       </div>
@@ -55,19 +56,18 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
 import 'swiper/css/effect-fade';
 import Search from "../components/Search.vue";
-import SliderMovies from "../components/SliderMovies.vue";
-import Button from "../components/Button.vue";
+import Cta from "../components/Cta.vue";
 import {Ref, ref, watchEffect} from "vue";
+import SliderTabsMovies from "../components/SliderTabsMovies.vue";
 
 const { data: movies } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/now_playing?language=fr-FR&page=1`)
 
-const trending: Ref<{ results: any } | null> = ref(null)
-const loading = ref(false)
+const trendingMovies: Ref<{ results: any } | null> = ref(null)
+const trendingTv: Ref<{ results: any } | null> = ref(null)
 const trendingType = ref('movie')
 
 const trendingFetch = async(url: string, elem: any) => {
   elem.value = null
-  loading.value = true
 
   try {
     const response = await fetch(`${import.meta.env.VITE_TMBD_URL}` + url, {
@@ -76,14 +76,11 @@ const trendingFetch = async(url: string, elem: any) => {
     elem.value = await response.json();
   } catch (err: any) {
     console.log(err.toString())
-  } finally {
-    loading.value = false
   }
 }
 
 watchEffect(() => {
-  trendingFetch(`/trending/${trendingType.value}/week?language=fr-FR'`, trending)
+  trendingFetch(`/trending/movie/week?language=fr-FR'`, trendingMovies)
+  trendingFetch(`/trending/tv/week?language=fr-FR'`, trendingTv)
 })
-
-console.log(trending)
 </script>

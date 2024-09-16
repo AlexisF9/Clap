@@ -44,7 +44,7 @@
   --toggle-buttons-active-bg: var(--color-secondary-1);
   --toggle-buttons-active: var(--color-primary-0);
 
-  .c-button {
+  .c-cta {
     --button-label: var(--text-default);
     --button-label-hover: var(--text-default);
     --button-bg: var(--color-neutral-0);
@@ -53,7 +53,7 @@
     --button-icon-hover: var(--text-default);
   }
 
-  .c-button--ghost {
+  .c-cta--ghost {
     --button-label: var(--color-neutral-0);
     --button-label-hover: var(--text-default);
     --button-border: var(--color-neutral-0);
