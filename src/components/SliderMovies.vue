@@ -1,13 +1,20 @@
 <template>
-  <div v-if="list" class="c-slider-movies">
+  <div class="c-slider-movies">
     <div class="c-slider-movies__intro">
-      <div class="c-slider-movies__title">
-        <h2 class="c-h-xl u-text-white">{{ title }}</h2>
+      <div>
+        <div class="c-slider-movies__title">
+          <h2 class="c-h-xl u-text-white">{{ title }}</h2>
+          <select class="c-slider-movies__select" v-model="select" v-if="filter && filter.length > 0">
+            <option v-for="item in filter" :value="item.value">{{ item.label }}</option>
+          </select>
+        </div>
         <p v-if="subtitle" class="c-text-l u-text-light u-mt-12">{{ subtitle }}</p>
       </div>
+
       <Button v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
     </div>
     <Swiper
+        v-if="!loading && list"
         class="c-slider-movies__swiper"
         slides-per-view="auto"
         :space-between="20"
@@ -28,10 +35,11 @@
       <SwiperSlide v-for="movie in list">
         <MovieCard
           :id="movie.id"
-          :title="movie.title"
+          :title="movie.title ?? movie.name"
           :note="movie.vote_average"
           :poster="movie.poster_path"
           :note_count="movie.vote_count"
+          :type="type === 'tv' ? 'tv' : 'movie'"
         />
       </SwiperSlide>
       <div class="c-slider-movies__nav">
@@ -50,5 +58,16 @@ import 'swiper/css/navigation';
 import MovieCard from "./MovieCard.vue";
 import Button from "./Button.vue";
 
-defineProps(['title', 'subtitle', 'list', 'action'])
+const select = defineModel('select')
+
+interface Props {
+  title: string,
+  subtitle?: string,
+  list: any[],
+  action?: { label: string, link: string },
+  filter?: { value: string, label: string }[],
+  loading?: any
+  type?: string
+}
+defineProps<Props>()
 </script>

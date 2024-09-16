@@ -33,12 +33,14 @@
     <div class="o-container c-home__main">
       <Search/>
 
-      <div class="u-mt-48" v-if="movies && movies.results.length > 0">
-        <SliderMovies title="Les films à l'affiche" :list="movies.results"/>
-      </div>
-
-      <div class="u-mt-48" v-if="upcoming && upcoming.results.length > 0">
-        <SliderMovies title="Ils arrivent bientot" :list="upcoming.results"/>
+      <div class="u-mt-48">
+        <SliderMovies
+            title="Populaire cette semaine"
+            :list="trending ? trending.results : []"
+            :loading="loading"
+            :filter="[{value: 'movie', label: 'Film'}, {value: 'tv', label: 'Série'}]"
+            :type="`${trendingType && trendingType === 'tv' ? 'tv' : 'movie'}`"
+            v-model:select="trendingType"/>
       </div>
     </div>
   </div>
@@ -54,7 +56,31 @@ import 'swiper/css/effect-fade';
 import Search from "../components/Search.vue";
 import SliderMovies from "../components/SliderMovies.vue";
 import Button from "../components/Button.vue";
+import {ref, watchEffect} from "vue";
 
 const { data: movies } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/now_playing?language=fr-FR&page=1`)
-const { data: upcoming } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/upcoming?language=fr-FR&page=1`)
+
+const trending = ref(null)
+const loading = ref(false)
+const trendingType = ref('movie')
+
+const trendingFetch = async(url: string, elem: any) => {
+  elem.value = null
+  loading.value = true
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_TMBD_URL}` + url, {
+      headers: {Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}`}
+    });
+    elem.value = await response.json();
+  } catch (err: any) {
+    console.log(err.toString())
+  } finally {
+    loading.value = false
+  }
+}
+
+watchEffect(() => {
+  trendingFetch(`/trending/${trendingType.value}/week?language=fr-FR'`, trending)
+})
 </script>
