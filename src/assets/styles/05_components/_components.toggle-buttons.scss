@@ -2,9 +2,21 @@
   border: 2px solid var(--toggle-buttons-border);
   border-radius: 10rem;
   width: fit-content;
+
+  @include max-width(md) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 }
+
 .c-toggle-buttons__cta {
   padding: .5rem 1rem;
+
+  @include max-width(md) {
+    width: inherit;
+  }
 
   &.is-active {
     background-color: var(--toggle-buttons-active-bg);

@@ -16,7 +16,7 @@
         </div>
         <p v-if="subtitle" class="c-text-l u-text-light u-mt-12">{{ subtitle }}</p>
       </div>
-      <Button v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
+      <Button class="c-slider-movies__more-cta" v-if="action" label="Voir plus" type="ghost" icon="fas fa-plus"/>
     </div>
     <Swiper
         v-if="!loading && list"
