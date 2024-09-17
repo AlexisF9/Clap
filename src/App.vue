@@ -14,7 +14,7 @@
 
     <template #footer>
       <h2 class="c-h-2xl u-text-white">CLAP</h2>
-      <p class="c-text-l u-text-light">IMDb API data</p>
+      <p class="c-text-l u-text-light">TMDb API data</p>
     </template>
   </Layout>
 </template>

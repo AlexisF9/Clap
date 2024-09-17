@@ -3,14 +3,14 @@
 }
 
 .c-episodes-rating__seasons {
-  background-color: #252525;
+  background-color: var(--episodes-rating-bg);
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: var(--radius-md);
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  gap: .5rem;
   width: 100%;
   overflow: auto;
+  max-height: 50rem;
 
   & > div {
     position: relative;
@@ -19,17 +19,10 @@
   }
 }
 
-.c-episodes-rating__season-name {
-  width: fit-content;
-
-  @include min-width(md) {
-    position: sticky;
-    left: 0;
-  }
-}
-
 .c-episodes-rating__episodes-list {
   display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
 .c-episodes-rating__episode {
@@ -40,6 +33,9 @@
   gap: .5rem;
   padding: .5rem 1rem;
   background-color: grey;
+  border-radius: var(--radius-sm);
+  min-width: 6rem;
+  height: 6rem;
 
   &--nul {
     background-color: #a2336b;
