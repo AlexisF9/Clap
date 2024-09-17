@@ -72,11 +72,12 @@ const tv: Ref<{
   first_air_date: string,
   last_air_date: string,
   vote_count: number,
-  genres: any
+  genres: any,
   number_of_seasons: number,
   number_of_episodes: number,
-  seasons: any
-  networks: []
+  seasons: any,
+  networks: [],
+  in_production: boolean
 } | null> = ref(null)
 const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
 const credits: Ref<{ cast: [] } | any> = ref(null)
