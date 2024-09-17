@@ -57,6 +57,7 @@ interface Props {
   list: any[],
   action?: { label: string, link: string }
   card_type?: string
+  date?: boolean
 }
 defineProps<Props>()
 </script>

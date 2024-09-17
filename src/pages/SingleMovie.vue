@@ -7,7 +7,7 @@
 
     <div class="o-container c-single-movie__titles">
       <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`Poster ${movie.title}`" />
-      <h1 class="c-h-3xl-desk c-h-2xl-mob u-text-white">{{ movie.title }}</h1>
+      <h1 class="c-h-3xl-desk c-h-2xl-mob u-text-white c-single-movie__title">{{ movie.title }}</h1>
       <p class="c-text-l u-text-white u-mt-16" v-if="movie.vote_average && movie.vote_count && movie.vote_count > 0">
         {{ Math.round(movie.vote_average * 10) / 10 }}/10 ({{ movie.vote_count }})
       </p>

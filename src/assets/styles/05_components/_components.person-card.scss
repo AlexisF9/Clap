@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   gap: $space-10;
+  position: relative;
 
   h3, p {
     transition: color var(--transition-in-out);
@@ -23,6 +24,15 @@
     transition: opacity var(--transition-in-out);
     border-radius: var(--radius-md);
     aspect-ratio: 300/450;
+  }
+}
+
+.c-person-card__name {
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
   }
 }
 

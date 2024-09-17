@@ -1,0 +1,16 @@
+.c-single-person__intro {
+  display: flex;
+  gap: 1rem;
+}
+
+.c-single-person__picture {
+  max-width: 50rem;
+  border-radius: var(--radius-md);
+}
+
+.c-single-person__sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  padding-top: 10rem;
+}

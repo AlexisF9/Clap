@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 interface Props {
-  poster: string,
+  poster?: string,
   title: string,
   id: number,
   note: number,
