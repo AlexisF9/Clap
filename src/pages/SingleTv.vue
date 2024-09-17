@@ -20,6 +20,7 @@
           :genres="tv.genres"
           :first_air_date="tv.first_air_date"
           :last_air_date="tv.last_air_date"
+          :in_production="tv.in_production"
           :overview="tv.overview"
           :seasons_count="tv.number_of_seasons"
           :episodes_count="tv.number_of_episodes"
@@ -103,6 +104,7 @@ watchEffect(() => {
   fetchData(`/credits?language=fr-FR`, credits)
   fetchData(`/recommendations?language=fr-FR&page=1`, reco)
 })
+watchEffect(() => console.log(tv))
 
 const fetchEp = async(number: number) => {
   try {

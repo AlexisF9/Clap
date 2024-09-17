@@ -23,6 +23,7 @@
         :overview="movie.overview"
         :revenue="movie.revenue"
         :budget="movie.budget"
+        :runtime="movie.runtime"
       />
     </div>
 
@@ -56,6 +57,7 @@ const movie: Ref<{
   genres: any,
   revenue: number,
   budget: number
+  runtime: number
 } | null> = ref(null)
 const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
 const reco: Ref<{ title: string, results: [] } | null> = ref(null)

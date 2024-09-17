@@ -24,8 +24,9 @@
             currency: 'EUR',
           }) }}
           </li>
-          <li class="c-text-m u-text-white" v-if="first_air_date">Première diffusion : {{ getDate(first_air_date) }}</li>
-          <li class="c-text-m u-text-white" v-if="first_air_date && last_air_date && last_air_date != first_air_date">Dernière diffusion : {{ getDate(last_air_date) }}</li>
+          <li class="c-text-m u-text-white" v-if="runtime">Dure {{ getRunTime(runtime) }}</li>
+          <li class="c-text-m u-text-white" v-if="first_air_date">Première diffusion : {{ getDate(first_air_date) }} <span v-if="!last_air_date && in_production">(En cours)</span></li>
+          <li class="c-text-m u-text-white" v-if="first_air_date && last_air_date && last_air_date != first_air_date">Dernière diffusion : {{ getDate(last_air_date) }} <span v-if="in_production">(En cours)</span></li>
           <li class="c-text-m u-text-white c-movie-infos__networks" v-if="networks && networks.length > 0">Diffusé sur <span v-for="network in networks">{{ network.name }}</span></li>
           <li class="c-text-m u-text-white" v-if="seasons_count">
             {{ seasons_count }} {{ seasons_count > 1 ? 'saisons' : 'saison' }}
@@ -57,6 +58,8 @@ interface Props {
   networks?: { name: string }[]
   revenue?: number
   budget?: number
+  runtime?: number
+  in_production?: boolean
 }
 defineProps<Props>()
 
@@ -72,5 +75,13 @@ const getDate = (date: string) => {
   //const s = Math.floor(seconds % 60);
   //console.log(d, h, m, s)
   return newDate.toLocaleDateString() + (daysBefore > 1 ? ` (${daysBefore} jours)` : '')
+}
+
+const getRunTime = (n:number) => {
+  const hours = (n / 60);
+  const h = Math.floor(hours);
+  const minutes = (hours - h) * 60;
+  const m = Math.round(minutes);
+  return h + 'h ' + m + "min";
 }
 </script>
