@@ -1,5 +1,5 @@
 .c-toggle-buttons {
-  border: 2px solid var(--toggle-buttons-border);
+  border: .2rem solid var(--toggle-buttons-border);
   border-radius: 10rem;
   width: fit-content;
 
@@ -12,7 +12,7 @@
 }
 
 .c-toggle-buttons__cta {
-  padding: .5rem 1rem;
+  padding: 0.5rem $space-20;
 
   @include max-width(md) {
     width: inherit;

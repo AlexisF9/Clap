@@ -22,7 +22,7 @@
         :navigation="{enabled: true, prevEl: '.person-prev', nextEl: '.person-next'}"
     >
       <SwiperSlide v-for="season in list.filter((el: any) => el.season_number > 0)">
-        <SeasonCard :title="season.name" :poster="season.poster_path" :episodes_count="season.episode_count" />
+        <SeasonCard :title="season.name" :poster="season.poster_path" :episodes_count="season.episode_count" :number="season.season_number" />
       </SwiperSlide>
       <div class="c-slider-seasons__nav">
         <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>

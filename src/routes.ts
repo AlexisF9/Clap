@@ -3,6 +3,7 @@ import NotFound from "./pages/NotFound.vue";
 import SingleMovie from "./pages/SingleMovie.vue";
 import SinglePerson from "./pages/SinglePerson.vue";
 import SingleTv from "./pages/SingleTv.vue";
+import SingleSeason from "./pages/SingleSeason.vue";
 
 export const routes = [
     {
@@ -16,9 +17,19 @@ export const routes = [
         name: 'single-movie'
     },
     {
-        path: '/tv/:id',
-        component: SingleTv,
-        name: 'single-tv'
+        path: '/serie/:id',
+        children: [
+            {
+                path: '',
+                component: SingleTv,
+                name: 'single-tv',
+            },
+            {
+                path: 'saison/:season_number',
+                component: SingleSeason,
+                name: 'single-season'
+            }
+        ]
     },
     {
         path: '/person/:id',
