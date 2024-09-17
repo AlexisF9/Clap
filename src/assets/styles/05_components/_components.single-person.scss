@@ -1,10 +1,15 @@
 .c-single-person__intro {
   display: flex;
   gap: 1rem;
+
+  @include max-width(md) {
+    flex-direction: column;
+  }
 }
 
 .c-single-person__picture {
   max-width: 50rem;
+  height: auto;
   border-radius: var(--radius-md);
 }
 
