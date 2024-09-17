@@ -87,7 +87,7 @@ const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
 const credits: Ref<{ cast: [] } | any> = ref(null)
 const reco: Ref<{ title: string, results: [] } | null> = ref(null)
 
-type Season = {name: string, episodes: { episode_number: number, vote_count: number, vote_average: any }}
+type Season = {name: string, episodes: { episode_number: number, vote_count: number, vote_average: any, length: number }}
 const test = ref<Season[]>([])
 
 const fetchData = async(url: string, elem: any) => {
