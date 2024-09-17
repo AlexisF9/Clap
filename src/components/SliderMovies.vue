@@ -13,14 +13,14 @@
         :space-between="20"
         :breakpoints="{
           '640': {
-            slidesPerView: 2,
+            slidesPerView: 2
           },
           '768': {
-            slidesPerView: 3,
+            slidesPerView: 3
           },
           '1024': {
-            slidesPerView: 5,
-          },
+            slidesPerView: 5
+          }
         }"
         :modules="[Navigation]"
         :navigation="{enabled: true, prevEl: '.swiper-prev', nextEl: '.swiper-next'}"
@@ -28,10 +28,11 @@
       <SwiperSlide v-for="movie in list">
         <MovieCard
           :id="movie.id"
-          :title="movie.title"
+          :title="movie.title ?? movie.name"
           :note="movie.vote_average"
           :poster="movie.poster_path"
           :note_count="movie.vote_count"
+          :type="card_type ?? 'movie'"
         />
       </SwiperSlide>
       <div class="c-slider-movies__nav">
@@ -55,6 +56,7 @@ interface Props {
   subtitle?: string,
   list: any[],
   action?: { label: string, link: string }
+  card_type?: string
 }
 defineProps<Props>()
 </script>
