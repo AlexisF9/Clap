@@ -2,7 +2,7 @@
   <div class="c-search">
     <h2 class="c-h-2xl u-text-white u-align-center u-mb-16">Rechercher</h2>
     <div v-click-outside="closeDropdown">
-      <form class="c-search__form" action="">
+      <form class="c-search__form" action="" @submit.prevent="fetchData">
         <input class="c-search__field" v-model="search" type="text" placeholder="Rechercher...">
         <i class="c-search__icon u-text-white fas fa-search"></i>
       </form>
@@ -28,7 +28,13 @@ const open = ref(false);
 const search = ref('')
 const data: any = ref(null)
 
-watchEffect(async () => {
+watchEffect( () => {
+  if (search.value) {
+    fetchData()
+  }
+})
+
+const fetchData = async() => {
   try {
     const response = await fetch(`${import.meta.env.VITE_TMBD_URL}/search/multi?query=${search.value}&include_adult=false&language=fr-FR&page=1`, {
       headers: { Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}` }
@@ -38,7 +44,7 @@ watchEffect(async () => {
   } catch (err: any) {
     console.log(err.toString())
   }
-})
+}
 
 const closeDropdown = () => {
   open.value = false;
