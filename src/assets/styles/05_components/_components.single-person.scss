@@ -1,6 +1,14 @@
+.c-single-person__infos {
+  @include min-width(md) {
+    background-color: var(--color-neutral-2);
+    padding: $space-20;
+    border-radius: var(--radius-md);
+  }
+}
+
 .c-single-person__intro {
   display: flex;
-  gap: 1rem;
+  gap: $space-10;
 
   @include max-width(md) {
     flex-direction: column;
@@ -16,6 +24,6 @@
 .c-single-person__sliders {
   display: flex;
   flex-direction: column;
-  gap: 10rem;
-  padding-top: 10rem;
+  gap: $space-100;
+  padding-top: $space-100;
 }

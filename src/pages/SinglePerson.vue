@@ -1,14 +1,16 @@
 <template>
   <div class="o-container" v-if="person">
-    <div class="c-single-person__intro">
-      <img v-if="person.profile_path" class="c-single-person__picture" :src="`https://image.tmdb.org/t/p/w300${person.profile_path}`" :alt="`Poster ${person.name}`" />
-      <div>
-        <h2 class="c-h-2xl u-text-white">{{ person.name }}</h2>
-        <p class="c-text-l u-text-white u-mt-16">Né le {{ getDate(person.birthday )}}<span v-if="!person.deathday">, {{ getAge(person.birthday) }} ans</span></p>
-        <p class="c-text-l u-text-white u-mt-16" v-if="person.deathday">Mort le {{ getDate(person.deathday)}} à {{ getAge(person.birthday) }} ans</p>
+    <div class="c-single-person__infos">
+      <div class="c-single-person__intro">
+        <img v-if="person.profile_path" class="c-single-person__picture" :src="`https://image.tmdb.org/t/p/w300${person.profile_path}`" :alt="`Poster ${person.name}`" />
+        <div>
+          <h2 class="c-h-2xl u-text-white">{{ person.name }}</h2>
+          <p class="c-text-l u-text-white u-mt-16">Né le {{ getDate(person.birthday )}}<span v-if="!person.deathday">, {{ getAge(person.birthday) }} ans</span></p>
+          <p class="c-text-l u-text-white u-mt-16" v-if="person.deathday">Mort le {{ getDate(person.deathday)}} à {{ getAge(person.birthday) }} ans</p>
+        </div>
       </div>
+      <p class="c-text-m u-text-white u-mt-32" v-if="person.biography">{{ person.biography }}</p>
     </div>
-    <p class="c-text-m u-text-white u-mt-32">{{ person.biography }}</p>
 
     <div class="c-single-person__sliders">
       <SliderMovies v-if="movies && movies.cast.length > 0" title="Films" :list="filteredMoviesDates(movies.cast)"/>
@@ -23,15 +25,36 @@ import {useRoute} from "vue-router";
 import {useFetch} from "../composables/fetch.ts";
 import SliderMovies from "../components/SliderMovies.vue";
 import SliderPersons from "../components/SliderPersons.vue";
+import {ref, watchEffect} from "vue";
 
 const route = useRoute()
 
-const { data: person } = useFetch(`${import.meta.env.VITE_TMBD_URL}/person/${route.params.id}?language=fr-FR`)
-const { data: movies } = useFetch(`${import.meta.env.VITE_TMBD_URL}/person/${route.params.id}/movie_credits?language=fr-FR`)
-const { data: tv } = useFetch(`${import.meta.env.VITE_TMBD_URL}/person/${route.params.id}/tv_credits?language=fr-FR`)
 const { data: trend } = useFetch(`${import.meta.env.VITE_TMBD_URL}/trending/person/day?language=fr-FR`)
 
-console.log(person)
+const person = ref<{profile_path: string, name: string, birthday: string, deathday: string, biography: string}>()
+const movies = ref<{cast: any[]}>()
+const tv = ref<{cast: any[]}>()
+
+const fetchData = async(url: string, elem: any) => {
+  elem.value = null
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_TMBD_URL}/person/${route.params.id}` + url, {
+      headers: {Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}`}
+    });
+    elem.value = await response.json();
+  } catch (err: any) {
+    console.log(err.toString())
+  }
+}
+
+watchEffect(() => {
+  fetchData(`?language=fr-FR`, person)
+  fetchData(`/movie_credits?language=fr-FR`, movies)
+  fetchData(`/tv_credits?language=fr-FR`, tv)
+})
+
+
 const getAge = (date: string) => {
   const birthDay = new Date(date)
   return Math.floor((Date.now() - birthDay.getTime()) / 31557600000)
