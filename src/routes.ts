@@ -4,12 +4,18 @@ import SingleMovie from "./pages/SingleMovie.vue";
 import SinglePerson from "./pages/SinglePerson.vue";
 import SingleTv from "./pages/SingleTv.vue";
 import SingleSeason from "./pages/SingleSeason.vue";
+import Movies from "./pages/Movies.vue";
 
 export const routes = [
     {
         path: '/',
         component: Home,
         name: 'home'
+    },
+    {
+        path: '/films',
+        component: Movies,
+        name: 'movies'
     },
     {
         path: '/film/:id',

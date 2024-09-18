@@ -14,7 +14,7 @@
     </div>
 
     <div class="o-container c-single-movie__infos">
-      <div v-if="videos && videos.results.length > 0">
+      <div v-if="videos && videos.results.length > 0 && videos.results.filter((el: any) => el.type === 'Trailer').length > 0">
         <Trailer title="Bande-annonce" :videos="videos" />
       </div>
       <MovieInfos
@@ -62,6 +62,7 @@ const movie: Ref<{
 const videos: Ref<{ results: [{key: string}] } | null> = ref(null)
 const reco: Ref<{ title: string, results: [] } | null> = ref(null)
 const credits: Ref<{ cast: [] } | any> = ref(null)
+const date: Ref<any> = ref(null)
 
 const fetchData = async(url: string, elem: any) => {
   elem.value = null
@@ -81,5 +82,13 @@ watchEffect(() => {
   fetchData(`/videos?language=fr-FR`, videos)
   fetchData(`/recommendations?language=fr-FR&page=1`, reco)
   fetchData(`/credits?language=fr-FR`, credits)
+  fetchData(`/release_dates`, date)
 })
+//const getReleaseDate = (date: any) => {
+//  if (date && date.results.length > 0) {
+//    const fr = date.results.find((el: any) => el.iso_3166_1 === 'FR')
+//    return fr.release_dates.find((i: any) => i.note === '').release_date.slice(0, 10)
+//  }
+//  return null
+//}
 </script>

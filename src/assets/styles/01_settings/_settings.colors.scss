@@ -5,6 +5,7 @@
   --color-primary-0-50: rgba(0, 0, 0, .5);
 
   --color-neutral-0: rgba(255, 255, 255, 1);
+  --color-neutral-0-50: rgba(255, 255, 255, .5);
 
   --color-neutral-1: rgba(22, 22, 22, 1);
   --color-neutral-1-50: rgba(22, 22, 22, .5);
@@ -48,6 +49,10 @@
 
   // EPISODES RATING
   --episodes-rating-bg: var(--color-neutral-2);
+
+  // PAGINATION
+  --pagination-button-bg: var(--color-neutral-0-50);
+  --pagination-button-bg-hover: var(--color-secondary-1);
 
   .c-cta {
     --button-label: var(--text-default);
