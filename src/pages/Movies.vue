@@ -49,9 +49,10 @@
 <script setup lang="ts">
 import MovieCard from "../components/MovieCard.vue";
 import {ref, watchEffect} from "vue";
+import {useFetch} from "../composables/fetch.ts";
 
-//const { data: genres } = useFetch(`${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr-FR`)
-//
+const { data: genres } = useFetch(`${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr-FR`)
+console.log(genres)
 //const genre = ref('all')
 const date = ref(null)
 const page = ref(1)
@@ -84,7 +85,7 @@ const getWeekDates = () => {
 
 watchEffect(() => {
   getWeekDates()
-  fetchData(`/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=${page.value}&region=FR&release_date.gte=${firstDayOfWeek.value}&release_date.lte=${lastDayOfWeek.value}&sort_by=primary_release_date.desc`, movies)
+  fetchData(`/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=${page.value}&region=FR&release_date.gte=${firstDayOfWeek.value}&release_date.lte=${lastDayOfWeek.value}&sort_by=primary_release_date.desc&without_genres=10770`, movies)
 
 })
 // /movie/now_playing?language=fr-FR&page=${page.value}&region=fr&with_genres=37
