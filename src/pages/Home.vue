@@ -13,7 +13,7 @@
     >
       <SwiperSlide v-for="movie in movies.results">
         <div class="o-container c-home__swiper-content">
-          <h2 class="c-h-2xl u-text-white u-mb-24">En ce moment... <span class="u-text-secondary">{{ movie.title }}</span></h2>
+          <h2 class="c-h-2xl u-text-white u-mb-24">À l'affiche... <span class="u-text-secondary">{{ movie.title }}</span></h2>
           <Cta
               label="En voir plus"
               size="lg"
@@ -33,9 +33,13 @@
     <div class="o-container c-home__main">
       <Search/>
 
+      <div class="u-mt-64" v-if="upcoming && upcoming.results.length > 0">
+        <SliderMovies title="Bientot à l'affiche" :list="upcoming.results"/>
+      </div>
+
       <div class="u-mt-64">
         <SliderTabsMovies
-            title="Populaire cette semaine"
+            title="Populaire en ce moment"
             :tabs="[
                 { value: 'movie', label: 'Film', list: trendingMovies ? trendingMovies.results : [] },
                 { value: 'tv', label: 'Série', list: trendingTv ? trendingTv.results : [] }
@@ -59,8 +63,10 @@ import Search from "../components/Search.vue";
 import Cta from "../components/Cta.vue";
 import {Ref, ref, watchEffect} from "vue";
 import SliderTabsMovies from "../components/SliderTabsMovies.vue";
+import SliderMovies from "../components/SliderMovies.vue";
 
-const { data: movies } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/now_playing?language=fr-FR&page=1`)
+const { data: movies } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/now_playing?language=fr-FR&page=1&region=FR`)
+const { data: upcoming } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/upcoming?language=fr-FR&page=1&region=FR`)
 
 const trendingMovies: Ref<{ results: any } | null> = ref(null)
 const trendingTv: Ref<{ results: any } | null> = ref(null)
