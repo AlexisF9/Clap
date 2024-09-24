@@ -23,7 +23,9 @@
 </template>
 
 <script setup lang="ts">
-const page = defineModel('page')
+import {Ref} from "vue";
+
+const page: Ref = defineModel('page')
 interface Props {
   total_pages: number
 }
