@@ -6,6 +6,7 @@ import SingleTv from "./pages/SingleTv.vue";
 import SingleSeason from "./pages/SingleSeason.vue";
 import Movies from "./pages/Movies.vue";
 import Series from "./pages/Series.vue";
+import Test from "./pages/Test.vue";
 
 export const routes = [
     {
@@ -27,6 +28,11 @@ export const routes = [
         path: '/film/:id',
         component: SingleMovie,
         name: 'single-movie'
+    },
+    {
+        path: '/test',
+        component: Test,
+        name: 'test'
     },
     {
         path: '/serie/:id',
