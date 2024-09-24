@@ -18,52 +18,80 @@
       </AisSearchBox>
 
       <div class="c-search-test__content">
-        <AisRefinementList class="c-search-test__facets u-text-white" attribute="genres" searchable>
-          <template v-slot="{ items, refine, searchForItems }">
-            <AisSearchBox>
-              <template v-slot>
-                <input class="u-mb-16 c-search-test__facet-field" @input="searchForItems(($event.currentTarget as HTMLInputElement).value)">
+        <div>
+          <AisRefinementList class="c-search-test__facets u-text-white" attribute="genres" searchable>
+            <template v-slot="{ items, refine, searchForItems }">
+              <AisSearchBox>
+                <template v-slot>
+                  <input class="u-mb-16 c-search-test__facet-field" @input="searchForItems(($event.currentTarget as HTMLInputElement).value)">
+                </template>
+              </AisSearchBox>
+              <template v-if="items.length">
+                <ul class="c-search-test__facet-list">
+                  <li v-for="(item, index) in items" :key="item.value">
+                    <input
+                        :id="`facet-genres-${index}`"
+                        type="checkbox"
+                        :name="`facet-genres-${index}`"
+                        :checked="item.isRefined"
+                        @input.prevent="refine(item.value)"
+                    />
+                    <label :for="`facet-genres-${index}`" class="c-field__label">
+                      {{ item.label }}
+                      <span>({{ item.count }})</span>
+                    </label>
+                  </li>
+                </ul>
               </template>
-            </AisSearchBox>
-            <template v-if="items.length">
-              <ul class="c-search-test__facet-list">
-                <li v-for="(item, index) in items" :key="item.value">
-                  <input
-                      :id="`facet-genres-${index}`"
-                      type="checkbox"
-                      :name="`facet-genres-${index}`"
-                      :checked="item.isRefined"
-                      @input.prevent="refine(item.value)"
-                  />
-                  <label :for="`facet-genres-${index}`" class="c-field__label">
-                    {{ item.label }}
-                    <span>({{ item.count }})</span>
-                  </label>
+              <template v-else>Aucun résultat.</template>
+            </template>
+          </AisRefinementList>
+          <AisRatingMenu class="c-search-test__facets u-mt-16" attribute="note">
+            <template v-slot="{ items, refine, createURL }">
+              <p class="u-text-white u-mb-12">Note minimum</p>
+              <ul>
+                <li v-for="item in items" :key="item.value">
+                  <a
+                      :href="createURL(item.value)"
+                      :style="{ color: item.isRefined ? 'gold' : '#fff' }"
+                      @click.prevent="refine(item.value)"
+                  >
+                  <span v-for="(full, index) in item.stars" :key="index">
+                    {{ full ? '★' : '☆' }}
+                  </span>
+                    ({{ item.count }})
+                  </a>
                 </li>
               </ul>
             </template>
-            <template v-else>Aucun résultat.</template>
-          </template>
-        </AisRefinementList>
+          </AisRatingMenu>
+        </div>
 
         <div>
-          <AisHits class="c-search-test__result-cards">
-            <template v-slot="{ items }">
-              <template v-if="items.length" v-for="item in items">
-                <div class="c-search-test__result-card u-mb-24">
-                  <p class="u-text-white">{{item.title}}</p>
-                  <ul>
-                    <li class="u-text-light" v-for="el in item.genres">
-                      {{ el }}
-                    </li>
-                  </ul>
-                </div>
-              </template>
-              <template v-else>
-                <p class="u-text-white">Aucun résultat</p>
-              </template>
+          <AisInfiniteHits>
+            <template v-slot="{ items, isLastPage, refineNext }">
+              <div class="c-search-test__result-cards">
+                <template v-if="items.length" v-for="item in items">
+                  <div class="c-search-test__result-card">
+                    <p class="u-text-white">{{item.title}}</p>
+                    <ul>
+                      <li class="u-text-light" v-for="el in item.genres">
+                        {{ el }}
+                      </li>
+                    </ul>
+                    <p class="u-text-white u-mt-16">{{ item.note }}/5</p>
+                  </div>
+                </template>
+                <template v-else>
+                  <p class="u-text-white">Aucun résultat</p>
+                </template>
+              </div>
+              <div class="u-mt-32" v-if="!isLastPage">
+                <Cta label="Show more results" type="plain" size="md" @click="refineNext"/>
+              </div>
             </template>
-          </AisHits>
+          </AisInfiniteHits>
+          <!--
           <AisPagination class="c-search-test__pagination">
             <template v-slot="{ currentRefinement, nbPages, pages, isFirstPage, isLastPage, refine, createURL }">
               <ul class="u-text-white">
@@ -105,6 +133,7 @@
               </ul>
             </template>
           </AisPagination>
+          -->
         </div>
       </div>
     </AisInstantSearch>
@@ -112,30 +141,30 @@
 </template>
 
 <script setup lang="ts">
-import { AisInstantSearch, AisSearchBox, AisConfigure, AisHits } from 'vue-instantsearch/vue3/es';
+import { AisInstantSearch, AisSearchBox, AisConfigure, AisInfiniteHits, AisRatingMenu } from 'vue-instantsearch/vue3/es';
 import { algoliasearch } from 'algoliasearch';
+import Cta from "../components/Cta.vue";
 
 const searchClient = {
   ...algoliasearch(import.meta.env.VITE_ALGOLIA_APP, import.meta.env.VITE_ALGOLIA_API),
-  search(requests: never[]) {
-    if (requests.every(({ params }: { params: { query?: string } }) => !params.query)) {
-      return Promise.resolve({
-        results: requests.map(() => ({
-          hits: [],
-          nbHits: 0,
-          nbPages: 0,
-          page: 0,
-          processingTimeMS: 0,
-          hitsPerPage: 0,
-          exhaustiveNbHits: false,
-          query: '',
-          params: '',
-        })),
-      });
-    }
-
-    return algoliasearch('4JZM1RK86D', 'dc580b87b8cab44f44bc47cf3c442d91').search(requests);
-  },
+  //search(requests: never[]) {
+  //  if (requests.every(({ params }: { params: { query?: string } }) => !params.query)) {
+  //    return Promise.resolve({
+  //      results: requests.map(() => ({
+  //        hits: [],
+  //        nbHits: 0,
+  //        nbPages: 0,
+  //        page: 0,
+  //        processingTimeMS: 0,
+  //        hitsPerPage: 0,
+  //        exhaustiveNbHits: false,
+  //        query: '',
+  //        params: '',
+  //      })),
+  //    });
+  //  }
+  //  return algoliasearch('4JZM1RK86D', 'dc580b87b8cab44f44bc47cf3c442d91').search(requests);
+  //},
 };
 </script>
 
@@ -155,11 +184,11 @@ const searchClient = {
 .c-search-test__content {
   grid-template-columns: 20rem 2fr;
   gap: 3.2rem;
-  display: none;
+  display: grid;
 
-  &:has(.c-search-test__result-card) {
-    display: grid;
-  }
+  //&:has(.c-search-test__result-card) {
+  //  display: grid;
+  //}
 }
 
 .c-search-test__facets {

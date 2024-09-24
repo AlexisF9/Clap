@@ -8,7 +8,7 @@
     {{ label }}
     <i v-if="icon && iconPosition === 'right'" :class="icon"></i>
   </RouterLink>
-  <button :class="`c-cta`" v-else><i v-if="icon" :class="icon"></i>{{ label }}</button>
+  <button :class="`c-cta ${types[type as keyof typeof types]} ${sizes[size as keyof typeof sizes]}`" v-else><i v-if="icon" :class="icon"></i>{{ label }}</button>
 </template>
 
 <script setup lang="ts">
