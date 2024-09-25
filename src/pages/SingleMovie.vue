@@ -19,7 +19,7 @@
       </div>
       <MovieInfos
         :genres="movie.genres"
-        :release_date="movie.release_date"
+        :release_date="getReleaseDate ?? movie.release_date"
         :overview="movie.overview"
         :revenue="movie.revenue"
         :budget="movie.budget"
@@ -27,6 +27,9 @@
       />
     </div>
 
+    <div v-if="credits && credits.cast.length > 0" class="o-container">
+      <SliderPersons title="Team" :list="credits.crew"/>
+    </div>
     <div v-if="credits && credits.cast.length > 0" class="o-container">
       <SliderPersons title="Casting (VO)" :list="credits.cast"/>
     </div>
@@ -40,7 +43,7 @@
 import {useRoute} from "vue-router";
 import SliderMovies from "../components/SliderMovies.vue";
 import SliderPersons from "../components/SliderPersons.vue";
-import {Ref, ref, watchEffect} from "vue";
+import {computed, Ref, ref, watchEffect} from "vue";
 import MovieBackdrop from "../components/MovieBackdrop.vue";
 import Trailer from "../components/Trailer.vue";
 import MovieInfos from "../components/MovieInfos.vue";
@@ -84,6 +87,16 @@ watchEffect(() => {
   fetchData(`/credits?language=fr-FR`, credits)
   fetchData(`/release_dates`, date)
 })
+
+const getReleaseDate = computed(() => {
+  if (date && date.value && date.value.results.length > 0) {
+    const fr = date.value.results.find((el: any) => el.iso_3166_1 === 'FR');
+    return fr.release_dates.find((el: any) => el.note === '').release_date;
+  }
+  return null
+})
+
+console.log(credits)
 //const getReleaseDate = (date: any) => {
 //  if (date && date.results.length > 0) {
 //    const fr = date.results.find((el: any) => el.iso_3166_1 === 'FR')

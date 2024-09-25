@@ -5,11 +5,11 @@
       <div class="c-movie-infos__infos-list">
         <ul>
           <li class="u-text-white" v-if="genres">
-            <ul class="c-movie-infos__genres">
-              <li class="c-text-m u-text-white" v-for="item in genres">{{ item.name }}</li>
-            </ul>
+            <div class="c-movie-infos__genres">
+              <Tag v-for="item in genres"  link="#" :label="item.name"/>
+            </div>
           </li>
-          <li class="c-text-m u-text-white" v-if="release_date">Date de sortie : {{ getDate(release_date) }}</li>
+          <li class="c-text-m u-text-white" v-if="release_date">{{ getDate(release_date) }} en salle</li>
           <li class="c-text-m u-text-white" v-if="budget && budget > 0">
             Budget :
             {{ budget.toLocaleString('fr-FR', {
@@ -45,6 +45,8 @@
 </template>
 
 <script setup lang="ts">
+import Tag from "./Tag.vue";
+
 interface Props {
   genres?: { name: string }[]
   release_date?: string,

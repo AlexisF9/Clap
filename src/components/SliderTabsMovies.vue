@@ -5,13 +5,15 @@
         <div class="c-slider-tabs-movies__title">
           <h2 class="c-h-xl u-text-white">{{ title }}</h2>
           <div class="c-toggle-buttons">
-            <button
-                :class="set_type === item.value ? 'c-toggle-buttons__cta is-active' : 'c-toggle-buttons__cta u-text-white'"
-                v-for="item in tabs"
-                @click="set_type = item.value"
-            >
-              {{ item.label }}
-            </button>
+            <template v-for="item in tabs">
+              <button
+                  :class="set_type === item.value ? 'c-toggle-buttons__cta is-active' : 'c-toggle-buttons__cta u-text-white'"
+                  :disabled="item.list.length === 0"
+                  @click="set_type = item.value"
+              >
+                {{ item.label }}
+              </button>
+            </template>
           </div>
         </div>
         <p v-if="subtitle" class="c-text-l u-text-light u-mt-12">{{ subtitle }}</p>
@@ -19,7 +21,7 @@
     </div>
     <div v-for="tab in tabs">
       <Swiper
-          v-if="tab.value === set_type && tab.list.length > 0"
+          v-if="tab.list.length > 0 && tab.value === set_type"
           class="c-slider-tabs-movies__swiper"
           slides-per-view="auto"
           :space-between="20"

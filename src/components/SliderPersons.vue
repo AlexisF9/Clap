@@ -21,8 +21,8 @@
         :modules="[Navigation]"
         :navigation="{enabled: true, prevEl: '.person-prev', nextEl: '.person-next'}"
     >
-      <SwiperSlide v-for="cast in list">
-        <PersonCard :person="cast" />
+      <SwiperSlide v-for="person in list">
+        <PersonCard :person="person" />
       </SwiperSlide>
       <div class="c-slider-persons__nav">
         <button class="u-text-white person-prev"><i class="fa-solid fa-chevron-left"></i></button>

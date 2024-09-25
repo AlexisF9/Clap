@@ -18,6 +18,11 @@
     width: inherit;
   }
 
+  &:disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+
   &.is-active {
     color: var(--toggle-buttons-active);
     background-color: var(--toggle-buttons-active-bg);

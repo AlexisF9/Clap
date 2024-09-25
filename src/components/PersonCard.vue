@@ -4,7 +4,7 @@
     <div v-else class="c-person-card__no-picture c-h-2xl u-text-dark-light">CLAP</div>
     <div>
       <RouterLink class="c-person-card__name" :to="{ name: 'single-person', params: { id: person.id } }"><h3 class="c-h-l u-text-white u-align-center">{{ person.name }}</h3></RouterLink>
-      <p class="c-text-m u-align-center u-text-white">{{ person.character }}</p>
+      <p class="c-text-m u-align-center u-text-white">{{ person.character ?? person.job }}</p>
     </div>
   </div>
 </template>
