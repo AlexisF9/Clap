@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createSSRApp} from 'vue'
 import './assets/styles/style.scss'
 import App from './App.vue'
 import {createRouter, createWebHistory} from "vue-router";
@@ -16,7 +16,7 @@ const router = createRouter({
     },
 })
 
-const app = createApp(App)
+const app = createSSRApp(App)
 app.use(router)
 app.use(InstantSearch);
 app.directive('click-outside', ClickOutsideDirective);
