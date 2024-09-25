@@ -95,8 +95,6 @@ const getReleaseDate = computed(() => {
   }
   return null
 })
-
-console.log(credits)
 //const getReleaseDate = (date: any) => {
 //  if (date && date.results.length > 0) {
 //    const fr = date.results.find((el: any) => el.iso_3166_1 === 'FR')
