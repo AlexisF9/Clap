@@ -10,6 +10,6 @@ defineProps(['title', 'videos'])
 
 const getTrailer = (videos: any) => {
   const trailers = videos.filter((el: any) => el.type === 'Trailer')
-  return trailers.length > 2 ? trailers.reduce((r:any, o:any) => o.published_at < r.published_at ? o : r) : trailers[0]
+  return trailers.length > 1 ? trailers.reduce((r:any, o:any) => o.published_at < r.published_at ? o : r) : trailers[0]
 }
 </script>

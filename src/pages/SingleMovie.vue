@@ -27,7 +27,7 @@
       />
     </div>
 
-    <div v-if="credits && credits.cast.length > 0" class="o-container">
+    <div v-if="credits && credits.crew.length > 0" class="o-container">
       <SliderPersons title="Team" :list="credits.crew"/>
     </div>
     <div v-if="credits && credits.cast.length > 0" class="o-container">
@@ -91,15 +91,11 @@ watchEffect(() => {
 const getReleaseDate = computed(() => {
   if (date && date.value && date.value.results.length > 0) {
     const fr = date.value.results.find((el: any) => el.iso_3166_1 === 'FR');
-    return fr.release_dates.find((el: any) => el.note === '').release_date;
+    if (fr) {
+      return fr.release_dates.find((el: any) => el.note === '')?.release_date;
+    }
+    return null
   }
   return null
 })
-//const getReleaseDate = (date: any) => {
-//  if (date && date.results.length > 0) {
-//    const fr = date.results.find((el: any) => el.iso_3166_1 === 'FR')
-//    return fr.release_dates.find((i: any) => i.note === '').release_date.slice(0, 10)
-//  }
-//  return null
-//}
 </script>

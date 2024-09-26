@@ -105,6 +105,7 @@ watchEffect(() => {
   fetchData(`/credits?language=fr-FR`, credits)
   fetchData(`/recommendations?language=fr-FR&page=1`, reco)
 })
+console.log(videos)
 
 const fetchEp = async(number: number) => {
   try {

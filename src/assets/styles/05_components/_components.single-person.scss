@@ -10,6 +10,12 @@
   display: flex;
   gap: $space-10;
 
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: $space-12;
+  }
+
   @include max-width(md) {
     flex-direction: column;
   }
@@ -19,6 +25,22 @@
   max-width: 50rem;
   height: auto;
   border-radius: var(--radius-md);
+}
+
+.c-single-person__socials {
+  display: flex;
+  align-items: center;
+  gap: $space-10;
+  flex-wrap: wrap;
+
+  a {
+    color: var(--text-white);
+    transition: color var(--transition-in-out);
+
+    &:hover {
+      color: var(--text-secondary);
+    }
+  }
 }
 
 .c-single-person__sliders {
