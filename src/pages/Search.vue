@@ -1,10 +1,11 @@
 <template>
   <div class="o-container">
-    <AisInstantSearch :search-client="searchClient" index-name="movies">
-      <AisConfigure :hits-per-page.camel="3"></AisConfigure>
+    <AisInstantSearch :search-client="searchClient" index-name="data">
+      <AisConfigure :hits-per-page.camel="10"></AisConfigure>
 
       <AisSearchBox>
         <template #default="{ refine }">
+          <h2 class="u-align-center u-text-white c-h-2xl u-mb-24">Rechercher</h2>
           <input
               id="field_id"
               class="c-search-test__search-field"
@@ -18,12 +19,48 @@
       </AisSearchBox>
 
       <div class="c-search-test__content">
-        <div>
-          <AisRefinementList class="c-search-test__facets u-text-white" attribute="genres" searchable>
+        <div class="c-search-test__facets">
+          <AisClearRefinements class="c-search-test__reset">
+            <template v-slot="{ canRefine, refine, createURL }">
+              <a
+                  :href="createURL()"
+                  @click.prevent="refine"
+                  v-if="canRefine"
+              >
+                Reinitialiser
+              </a>
+              <p v-else>Reinitialiser</p>
+            </template>
+          </AisClearRefinements>
+          <AisRefinementList class="c-search-test__facet u-text-white" attribute="type">
+            <template v-slot="{ items, refine }">
+              <template v-if="items.length">
+                <h3 class="u-mb-16 c-h-l">Type</h3>
+                <ul class="c-search-test__facet-list">
+                  <li v-for="(item, index) in items" :key="item.value">
+                    <input
+                        :id="`facet-type-${index}`"
+                        type="checkbox"
+                        :name="`facet-type-${index}`"
+                        :checked="item.isRefined"
+                        @input.prevent="refine(item.value)"
+                    />
+                    <label :for="`facet-type-${index}`">
+                      {{ item.label }}
+                      <span>({{ item.count }})</span>
+                    </label>
+                  </li>
+                </ul>
+              </template>
+              <template v-else>Aucun résultat.</template>
+            </template>
+          </AisRefinementList>
+          <AisRefinementList class="c-search-test__facet u-text-white" attribute="genres" searchable>
             <template v-slot="{ items, refine, searchForItems }">
+              <h3 class="u-mb-16 c-h-l">Genres</h3>
               <AisSearchBox>
                 <template v-slot>
-                  <input class="u-mb-16 c-search-test__facet-field" @input="searchForItems(($event.currentTarget as HTMLInputElement).value)">
+                  <input class="u-mb-16 c-search-test__facet-field" placeholder="rechercher..." @input="searchForItems(($event.currentTarget as HTMLInputElement).value)">
                 </template>
               </AisSearchBox>
               <template v-if="items.length">
@@ -36,7 +73,7 @@
                         :checked="item.isRefined"
                         @input.prevent="refine(item.value)"
                     />
-                    <label :for="`facet-genres-${index}`" class="c-field__label">
+                    <label :for="`facet-genres-${index}`">
                       {{ item.label }}
                       <span>({{ item.count }})</span>
                     </label>
@@ -46,9 +83,9 @@
               <template v-else>Aucun résultat.</template>
             </template>
           </AisRefinementList>
-          <AisRatingMenu class="c-search-test__facets u-mt-16" attribute="note">
+          <AisRatingMenu class="c-search-test__facet" attribute="note">
             <template v-slot="{ items, refine, createURL }">
-              <p class="u-text-white u-mb-12">Note minimum</p>
+              <h3 class="u-mb-16 c-h-l u-text-white">Note minimum</h3>
               <ul>
                 <li v-for="item in items" :key="item.value">
                   <a
@@ -192,6 +229,21 @@ const searchClient = {
 }
 
 .c-search-test__facets {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.c-search-test__reset {
+  color: var(--text-white);
+  text-decoration: underline;
+
+  p {
+    opacity: .5;
+  }
+}
+
+.c-search-test__facet {
   background-color: var(--color-neutral-2);
   padding: 2rem;
   border-radius: var(--radius-md);

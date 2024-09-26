@@ -5,6 +5,7 @@
       <div class="c-layout__header-links">
         <RouterLink class="c-text-m u-text-white" :to="{ name: 'movies' }">Films</RouterLink>
         <RouterLink class="c-text-m u-text-white" :to="{ name: 'series' }">Séries</RouterLink>
+        <RouterLink class="c-text-m u-text-white" :to="{ name: 'search' }">Recherche</RouterLink>
       </div>
     </template>
 

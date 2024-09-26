@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Beetlejuice Beetlejuice",
+    "genres": ["Comédie", "Fantastique"],
+    "type": "film",
+    "note": 3
+  },
+  {
+    "title": "Joker",
+    "genres": ["Drame", "Crime", "Thriller"],
+    "type": "film",
+    "note": 4.2
+  },
+  {
+    "title": "Joker: Folie à Deux",
+    "genres": ["Drame", "Crime", "Thriller"],
+    "type": "film",
+    "note": 3.5
+  },
+  {
+    "title": "Vice-versa",
+    "genres": ["Animation", "Familial", "Aventure", "Comédie", "Fantastique", "Drame"],
+    "type": "film",
+    "note": 4.1
+  },
+  {
+    "title": "Vice-versa 2",
+    "genres": ["Animation", "Familial", "Aventure", "Comédie", "Fantastique", "Drame"],
+    "type": "film",
+    "note": 3.5
+  },
+  {
+    "title": "Game of Thrones",
+    "genres": ["Science-Fiction", "Fantastique", "Drame", "Action", "Aventure"],
+    "type": "série",
+    "note": 4.8
+  },
+  {
+    "title": "Le Seigneur des anneaux : Les Anneaux de pouvoir",
+    "genres": ["Action", "Aventure", "Science-Fiction", "Fantastique", "Drame"],
+    "type": "série",
+    "note": 3.6
+  },
+  {
+    "title": "House of the Dragon",
+    "genres": ["Science-Fiction", "Fantastique", "Drame", "Action", "Aventure"],
+    "type": "série",
+    "note": 4.5
+  },
+  {
+    "title": "Breaking Bad",
+    "genres": ["Drame", "Crime"],
+    "type": "série",
+    "note": 5
+  },
+  {
+    "title": "Oppenheimer",
+    "genres": ["Drame", "Histoire"],
+    "type": "film",
+    "note": 4.5
+  },
+  {
+    "title": "Deadpool & Wolverine",
+    "genres": ["Action", "Comédie", "Science-Fiction"],
+    "type": "film",
+    "note": 3.7
+  },
+  {
+    "title": "Borderlands",
+    "genres": ["Action", "Comédie", "Science-Fiction", "Aventure", "Thriller"],
+    "type": "film",
+    "note": 3
+  },
+  {
+    "title": "The Last of Us",
+    "genres": ["Drame"],
+    "type": "série",
+    "note": 4
+  },
+  {
+    "title": "The Walking Dead",
+    "genres": ["Drame", "Action", "Aventure", "Science-Fiction", "Fantastique"],
+    "type": "série",
+    "note": 4.2
+  }
+]
