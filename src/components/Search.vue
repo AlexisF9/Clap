@@ -1,16 +1,16 @@
 <template>
-  <div class="c-search">
+  <div class="c-home-search">
     <h2 class="c-h-2xl u-text-white u-align-center u-mb-16">Rechercher</h2>
     <div v-click-outside="closeDropdown">
-      <form class="c-search__form" action="" @submit.prevent="fetchData">
-        <input class="c-search__field" v-model="search" type="text" placeholder="Rechercher...">
-        <i class="c-search__icon u-text-white fas fa-search"></i>
+      <form class="c-home-search__form" action="" @submit.prevent="fetchData">
+        <input class="c-home-search__field" v-model="search" type="text" placeholder="Rechercher...">
+        <i class="c-home-search__icon u-text-white fas fa-search"></i>
       </form>
-      <div class="c-search__results" v-if="open && data && data.total_results > 0">
-        <ul class="c-search__results-list">
+      <div class="c-home-search__results" v-if="open && data && data.total_results > 0">
+        <ul class="c-home-search__results-list">
           <li v-for="item in data.results.slice(0, 5)">
             <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w200${item.media_type === 'person' ? item.profile_path : item.poster_path}`" :alt="`Poster ${item.title}`" />
-            <RouterLink class="c-text-m u-text-default c-search__link" :to="{ name: getSinglePageUrl(item.media_type), params: { id: item.id } }">
+            <RouterLink class="c-text-m u-text-default c-home-search__link" :to="{ name: getSinglePageUrl(item.media_type), params: { id: item.id } }">
               {{ item.title ?? item.name }}
               <span v-if="getType(item.media_type)" class="c-text-s u-text-light">{{ getType(item.media_type) }}</span>
             </RouterLink>
