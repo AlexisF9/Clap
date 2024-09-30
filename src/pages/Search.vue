@@ -133,7 +133,7 @@
                 </template>
               </div>
               <div class="u-mt-32" v-if="!isLastPage">
-                <Cta label="Show more results" type="plain" size="md" @click="refineNext"/>
+                <Cta label="Voir plus de films" type="plain" size="md" @click="refineNext"/>
               </div>
             </template>
           </AisInfiniteHits>
