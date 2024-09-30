@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "algoliasearch": "v5",
+    "algoliasearch": "^5.6.1",
     "instantsearch.css": "^8.5.1",
     "sass": "^1.78.0",
     "swiper": "^11.1.12",
