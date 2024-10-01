@@ -24,24 +24,24 @@
 
     <div class="c-single-person__sliders">
       <SliderTabsMovies
-          v-if="movies?.cast && movies.cast.length > 0 || tv?.cast && tv.cast.length > 0"
+          v-if="filtered_movies?.cast && filtered_movies.cast.length > 0 || filtered_tv?.cast && filtered_tv.cast.length > 0"
           title="Au casting de"
           :tabs="[
-                { value: 'movie', label: 'Film', list: movies?.cast ? movies.cast : [] },
-                { value: 'tv', label: 'Série', list: tv?.cast ? tv.cast : [] }
+                { value: 'movie', label: 'Film', list: filtered_movies?.cast ? filtered_movies.cast : [] },
+                { value: 'tv', label: 'Série', list: filtered_tv?.cast ? filtered_tv.cast : [] }
             ]"
-          :type="movies?.cast && movies.cast.length === 0 ? trendingType = 'tv' : trendingType2"
+          :type="filtered_movies?.cast && filtered_movies.cast.length === 0 ? trendingType = 'tv' : trendingType2"
           v-model:select="trendingType2"
       />
 
       <SliderTabsMovies
-          v-if="movies?.crew && movies.crew.length > 0 || tv?.crew && tv.crew.length > 0"
+          v-if="filtered_movies?.crew && filtered_movies.crew.length > 0 || filtered_tv?.crew && filtered_tv.crew.length > 0"
           title="Dans l'équipe de"
           :tabs="[
-                { value: 'movie', label: 'Film', list: movies?.crew ? movies.crew : [] },
-                { value: 'tv', label: 'Série', list: tv?.crew ? tv.crew : [] }
+                { value: 'movie', label: 'Film', list: filtered_movies?.crew ? filtered_movies.crew : [] },
+                { value: 'tv', label: 'Série', list: filtered_tv?.crew ? filtered_tv.crew : [] }
             ]"
-          :type="movies?.crew && movies.crew.length === 0 ? trendingType = 'tv' : trendingType"
+          :type="filtered_movies?.crew && filtered_movies.crew.length === 0 ? trendingType = 'tv' : trendingType"
           v-model:select="trendingType"
       />
     </div>
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import {ref, watchEffect} from "vue";
+import {ref, watch, watchEffect} from "vue";
 import SliderTabsMovies from "../components/SliderTabsMovies.vue";
 
 const route = useRoute()
@@ -59,7 +59,9 @@ const trendingType2 = ref('movie')
 
 const person = ref<{profile_path: string, name: string, birthday: string, deathday: string, place_of_birth: string, biography: string, known_for_department: string}>()
 const movies = ref<{cast?: any[], crew?: any[]}>()
+const filtered_movies = ref<{cast?: any[], crew?: any[]}>({cast: [], crew: []})
 const tv = ref<{cast?: any[], crew?: any[]}>()
+const filtered_tv = ref<{cast?: any[], crew?: any[]}>({cast: [], crew: []})
 const socials = ref<{instagram_id?: string, tiktok_id?: string, twitter_id?: string, youtube_id?: string}>()
 
 const fetchData = async(url: string, elem: any) => {
@@ -86,7 +88,38 @@ const getDate = (date: string) => {
   const newDate = new Date(date)
   return newDate.toLocaleDateString()
 }
-console.log(socials)
+
+watch(movies, () => {
+    if(movies.value) {
+      movies?.value?.crew?.forEach((el:any) => {
+        if(!filtered_movies?.value?.crew?.find((e: any) => e.id === el.id)) {
+          filtered_movies?.value?.crew?.push(el)
+        }
+      })
+
+      movies?.value?.cast?.forEach((el:any) => {
+        if(!filtered_movies?.value?.cast?.find((e: any) => e.id === el.id)) {
+          filtered_movies?.value?.cast?.push(el)
+        }
+      })
+    }
+})
+
+watch(tv, () => {
+  if(tv.value) {
+    tv?.value?.crew?.forEach((el:any) => {
+      if(!filtered_tv?.value?.crew?.find((e: any) => e.id === el.id)) {
+        filtered_tv?.value?.crew?.push(el)
+      }
+    })
+
+    tv?.value?.cast?.forEach((el:any) => {
+      if(!filtered_tv?.value?.cast?.find((e: any) => e.id === el.id)) {
+        filtered_tv?.value?.cast?.push(el)
+      }
+    })
+  }
+})
 //const filteredMoviesDates = (array: any) => {
 //  return array.sort((a:any, b:any) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())
 //}
