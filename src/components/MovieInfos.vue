@@ -6,7 +6,7 @@
         <ul>
           <li class="u-text-white" v-if="genres">
             <div class="c-movie-infos__genres">
-              <Tag size="md" v-for="item in genres" link="#" :label="item.name"/>
+              <Tag size="md" :closable="false" v-for="item in genres" link="#" :label="item.name"/>
             </div>
           </li>
           <li class="c-text-m u-text-white" v-if="release_date">{{ getDate(release_date) }} en salle</li>
