@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :class="`c-tag ${size && size === 'sm' ? 'c-text-s' : 'c-text-m'} u-text-white`" :to="link">
+  <RouterLink :class="`c-tag ${size === 'sm' ? 'c-text-s' : 'c-text-m'} u-text-white`" :to="link">
     {{ label }}
     <i v-if="closable" class="u-text-secondary fas fa-times"></i>
   </RouterLink>
@@ -10,7 +10,7 @@ interface Props {
   label: string,
   link: string,
   closable: boolean,
-  size?: 'md' | 'sm'
+  size: 'md' | 'sm'
 }
 defineProps<Props>()
 
