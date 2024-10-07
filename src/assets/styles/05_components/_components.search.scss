@@ -9,14 +9,21 @@
   border-radius: var(--radius-full);
 }
 
+.c-search__filters-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-8;
+  margin-bottom: $space-24;
+
+  li {
+    display: flex;
+  }
+}
+
 .c-search__content {
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
-
-  //&:has(.c-search__result-card) {
-  //  display: grid;
-  //}
 
   @include min-width(md) {
     grid-template-columns: 20rem 2fr;
@@ -27,12 +34,12 @@
 .c-search__facets {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
 }
 
 .c-search__reset {
   color: var(--text-white);
   text-decoration: underline;
+  margin-bottom: $space-16;
 
   p {
     opacity: .5;
@@ -118,10 +125,6 @@
 
   @include max-width(lg) {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include max-width(md) {
-    grid-template-columns: 1fr;
   }
 }
 

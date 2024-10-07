@@ -18,8 +18,30 @@
         </template>
       </AisSearchBox>
 
+
       <div class="c-search__content">
         <div class="c-search__facets">
+          <AisCurrentRefinements>
+            <template v-slot="{ items, createURL }">
+              <ul>
+                <li v-for="item in items" :key="item.attribute">
+                  <ul class="c-search__filters-list">
+                    <li
+                        v-for="refinement in item.refinements"
+                        :key="[
+                          refinement.attribute,
+                          refinement.type,
+                          refinement.value,
+                          refinement.operator
+                        ].join(':')"
+                    >
+                      <Tag size="sm" :link="createURL(refinement)" :label="`${getGenres(genres, refinement.label)}`" @click.prevent="item.refine(refinement)" :closable="true"/>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </template>
+          </AisCurrentRefinements>
           <AisClearRefinements class="c-search__reset">
             <template v-slot="{ canRefine, refine, createURL }">
               <a
@@ -159,9 +181,6 @@
               </ul>
             </template>
           </AisHitsPerPage>
-          -->
-
-          <!--
           <AisPagination class="c-search__pagination">
             <template v-slot="{ currentRefinement, nbPages, pages, isFirstPage, isLastPage, refine, createURL }">
               <ul class="u-text-white">
@@ -217,6 +236,7 @@ import { algoliasearch } from "algoliasearch";
 import {useFetch} from "../composables/fetch.ts";
 import MovieCard from "../components/MovieCard.vue";
 import {ref} from "vue";
+import Tag from "../components/Tag.vue";
 
 const { data: genres } = useFetch(`${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr`)
 

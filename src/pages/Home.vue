@@ -31,7 +31,7 @@
     </Swiper>
 
     <div class="o-container c-home__main">
-      <Search/>
+      <Search ref="searchBar"/>
 
       <div class="u-mt-64" v-if="upcoming && upcoming.results.length > 0">
         <SliderMovies title="Bientot à l'affiche" :list="upcoming.results"/>
@@ -71,6 +71,10 @@ const { data: upcoming } = useFetch(`${import.meta.env.VITE_TMBD_URL}/movie/upco
 const trendingMovies: Ref<{ results: any } | null> = ref(null)
 const trendingTv: Ref<{ results: any } | null> = ref(null)
 const trendingType = ref('movie')
+
+const searchBar = ref(null);
+
+//console.log(searchBar?.value?.getBoundingClientRect())
 
 const trendingFetch = async(url: string, elem: any) => {
   elem.value = null
