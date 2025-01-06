@@ -1,11 +1,7 @@
 .c-single-movie {
   display: flex;
   flex-direction: column;
-  gap: 20rem;
-
-  @include max-width(md) {
-    gap: 10rem;
-  }
+  gap: 10rem;
 }
 
 .c-single-movie__titles {
@@ -22,6 +18,10 @@
       width: fit-content;
       height: 50rem;
     }
+  }
+
+  @include min-width(md) {
+    margin-bottom: 10rem;
   }
 
   @include max-width(md) {
