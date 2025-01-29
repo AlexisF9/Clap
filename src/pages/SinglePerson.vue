@@ -22,8 +22,14 @@
           >
             Mort le {{ getDate(person.deathday) }}
           </p>
-          <p class="c-text-l u-text-white" v-if="person.known_for_department">
-            Connu pour {{ person.known_for_department }}
+          <p
+            class="c-text-l u-text-white"
+            v-if="person.also_known_as?.length > 0"
+          >
+            Aussi connu sous le(s) nom(s) :
+            <span v-for="(p, index) in person.also_known_as">{{
+              index + 1 < person.also_known_as.length ? `${p}, ` : p
+            }}</span>
           </p>
           <div v-if="socials" class="c-single-person__socials">
             <a
@@ -138,7 +144,7 @@ const person = ref<{
   deathday: string;
   place_of_birth: string;
   biography: string;
-  known_for_department: string;
+  also_known_as: string;
 }>();
 const movies = ref<{ cast?: any[]; crew?: any[] }>();
 const filtered_movies = ref<{ cast?: any[]; crew?: any[] }>({
