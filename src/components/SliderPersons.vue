@@ -1,6 +1,5 @@
 <template>
   <div v-if="list">
-    {{ console.log(list) }}
     <div class="c-slider-persons__intro">
       <h2 class="c-h-xl u-text-white">{{ title }}</h2>
     </div>
