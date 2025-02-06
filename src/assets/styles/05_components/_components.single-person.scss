@@ -1,14 +1,14 @@
 .c-single-person__infos {
   @include min-width(md) {
-    background-color: var(--color-neutral-2);
-    padding: $space-20;
-    border-radius: var(--radius-md);
+    //background-color: var(--color-neutral-2);
+    //padding: $space-20;
+    //border-radius: var(--radius-md);
   }
 }
 
 .c-single-person__intro {
   display: flex;
-  gap: $space-10;
+  gap: $space-16;
 
   & > div {
     display: flex;

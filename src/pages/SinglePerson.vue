@@ -22,15 +22,6 @@
           >
             Mort le {{ getDate(person.deathday) }}
           </p>
-          <p
-            class="c-text-l u-text-white"
-            v-if="person.also_known_as?.length > 0"
-          >
-            Aussi connu sous le(s) nom(s) :
-            <span v-for="(p, index) in person.also_known_as">{{
-              index + 1 < person.also_known_as.length ? `${p}, ` : p
-            }}</span>
-          </p>
           <div v-if="socials" class="c-single-person__socials">
             <a
               class="c-text-l"
@@ -65,10 +56,7 @@
       </div>
     </div>
 
-    <h2 class="c-h-xl u-text-white u-mt-32 u-mb-16" v-if="person.biography">
-      Biographie
-    </h2>
-    <p class="c-text-m u-text-white" v-if="person.biography">
+    <p class="c-text-m u-text-white u-mt-32" v-if="person.biography">
       {{ person.biography }}
     </p>
 
@@ -118,9 +106,9 @@
           },
         ]"
         :type="
-          filtered_movies?.crew && filtered_movies.crew.length === 0
-            ? (trendingType = 'tv')
-            : trendingType
+          filtered_movies?.crew && filtered_movies.crew.length > 0
+            ? trendingType
+            : (trendingType = 'tv')
         "
         v-model:select="trendingType"
       />
@@ -144,7 +132,6 @@ const person = ref<{
   deathday: string;
   place_of_birth: string;
   biography: string;
-  also_known_as: string;
 }>();
 const movies = ref<{ cast?: any[]; crew?: any[] }>();
 const filtered_movies = ref<{ cast?: any[]; crew?: any[] }>({
