@@ -13,7 +13,7 @@
     >
       <SwiperSlide v-for="movie in movies.results">
         <div class="o-container c-home__swiper-content">
-          <h2 class="c-h-2xl u-text-white u-mb-24">
+          <h2 class="c-h-2xl c-h-xl-mob u-text-white u-mb-24">
             À l'affiche...
             <span class="u-text-secondary">{{ movie.title }}</span>
           </h2>

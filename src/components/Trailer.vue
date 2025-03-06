@@ -1,6 +1,6 @@
 <template>
   <div class="c-trailer">
-    <h2 class="c-h-xl u-text-white u-mb-16">{{ title }}</h2>
+    <h2 class="c-h-xl c-h-l-mob u-text-white u-mb-16">{{ title }}</h2>
     <iframe
       :src="`https://www.youtube.com/embed/${
         videos.results.length > 1

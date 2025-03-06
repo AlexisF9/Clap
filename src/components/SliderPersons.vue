@@ -1,7 +1,7 @@
 <template>
   <div v-if="list">
     <div class="c-slider-persons__intro">
-      <h2 class="c-h-xl u-text-white">{{ title }}</h2>
+      <h2 class="c-h-xl c-h-l-mob u-text-white">{{ title }}</h2>
     </div>
     <Swiper
       class="c-slider-persons__swiper"
