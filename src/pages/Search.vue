@@ -5,19 +5,20 @@
 
       <AisSearchBox>
         <template #default="{ refine }">
-          <h2 class="u-align-center u-text-white c-h-2xl u-mb-24">Bientôt en salle</h2>
+          <h2 class="u-align-center u-text-white c-h-2xl c-h-xl-mob u-mb-24">
+            Bientôt en salle
+          </h2>
           <input
-              id="field_id"
-              class="c-search__search-field"
-              type="text"
-              name="field_id"
-              placeholder="Rechercher le nom"
-              autocomplete="off"
-              @input="refine(($event.currentTarget as HTMLInputElement)?.value)"
+            id="field_id"
+            class="c-search__search-field"
+            type="text"
+            name="field_id"
+            placeholder="Rechercher le nom"
+            autocomplete="off"
+            @input="refine(($event.currentTarget as HTMLInputElement)?.value)"
           />
         </template>
       </AisSearchBox>
-
 
       <div class="c-search__content">
         <div class="c-search__facets">
@@ -27,15 +28,23 @@
                 <li v-for="item in items" :key="item.attribute">
                   <ul class="c-search__filters-list">
                     <li
-                        v-for="refinement in item.refinements"
-                        :key="[
+                      v-for="refinement in item.refinements"
+                      :key="
+                        [
                           refinement.attribute,
                           refinement.type,
                           refinement.value,
-                          refinement.operator
-                        ].join(':')"
+                          refinement.operator,
+                        ].join(':')
+                      "
                     >
-                      <Tag size="sm" :link="createURL(refinement)" :label="`${getGenres(genres, refinement.label)}`" @click.prevent="item.refine(refinement)" :closable="true"/>
+                      <Tag
+                        size="sm"
+                        :link="createURL(refinement)"
+                        :label="`${getGenres(genres, refinement.label)}`"
+                        @click.prevent="item.refine(refinement)"
+                        :closable="true"
+                      />
                     </li>
                   </ul>
                 </li>
@@ -44,11 +53,7 @@
           </AisCurrentRefinements>
           <AisClearRefinements class="c-search__reset">
             <template v-slot="{ canRefine, refine, createURL }">
-              <a
-                  :href="createURL()"
-                  @click.prevent="refine"
-                  v-if="canRefine"
-              >
+              <a :href="createURL()" @click.prevent="refine" v-if="canRefine">
                 Reinitialiser
               </a>
               <p v-else>Reinitialiser</p>
@@ -79,23 +84,36 @@
             </template>
           </AisRefinementList>
           -->
-          <AisRefinementList class="c-search__facet u-text-white" attribute="genre_ids" searchable>
+          <AisRefinementList
+            class="c-search__facet u-text-white"
+            attribute="genre_ids"
+            searchable
+          >
             <template v-slot="{ items, refine }">
               <div class="c-search__facet-intro">
                 <h3 class="c-h-l">Genres</h3>
-                <button class="c-search__facet-toggle u-text-white" @click="facet_open = !facet_open"><i class="fas fa-chevron-down"></i></button>
+                <button
+                  class="c-search__facet-toggle u-text-white"
+                  @click="facet_open = !facet_open"
+                >
+                  <i class="fas fa-chevron-down"></i>
+                </button>
               </div>
-              <div :class="`c-search__facet-content ${facet_open && 'c-search__facet-content--open'}`">
+              <div
+                :class="`c-search__facet-content ${
+                  facet_open && 'c-search__facet-content--open'
+                }`"
+              >
                 <div>
                   <template v-if="items.length">
                     <ul class="c-search__facet-list">
                       <li v-for="(item, index) in items" :key="item.value">
                         <input
-                            :id="`facet-genres-${index}`"
-                            type="checkbox"
-                            :name="`facet-genres-${index}`"
-                            :checked="item.isRefined"
-                            @input.prevent="refine(item.value)"
+                          :id="`facet-genres-${index}`"
+                          type="checkbox"
+                          :name="`facet-genres-${index}`"
+                          :checked="item.isRefined"
+                          @input.prevent="refine(item.value)"
                         />
                         <label :for="`facet-genres-${index}`">
                           {{ getGenres(genres, item.label) }}
@@ -148,14 +166,25 @@
                     <p class="u-text-white u-mt-16">{{ item.vote_average }}/10</p>
                   </div>
                   -->
-                  <MovieCard :id="item.id" :title="item.title" :note="item.vote_average" :note_count="item.vote_count" :poster="item.poster_path"/>
+                  <MovieCard
+                    :id="item.id"
+                    :title="item.title"
+                    :note="item.vote_average"
+                    :note_count="item.vote_count"
+                    :poster="item.poster_path"
+                  />
                 </template>
                 <template v-else>
                   <p class="u-text-white">Aucun résultat</p>
                 </template>
               </div>
               <div class="u-mt-32" v-if="!isLastPage">
-                <Cta label="Voir plus de films" type="plain" size="md" @click="refineNext"/>
+                <Cta
+                  label="Voir plus de films"
+                  type="plain"
+                  size="md"
+                  @click="refineNext"
+                />
               </div>
             </template>
           </AisInfiniteHits>
@@ -230,26 +259,38 @@
 </template>
 
 <script setup lang="ts">
-import { AisInstantSearch, AisSearchBox, AisConfigure, AisInfiniteHits } from 'vue-instantsearch/vue3/es';
+import {
+  AisInstantSearch,
+  AisSearchBox,
+  AisConfigure,
+  AisInfiniteHits,
+} from "vue-instantsearch/vue3/es";
 import Cta from "../components/Cta.vue";
 import { algoliasearch } from "algoliasearch";
-import {useFetch} from "../composables/fetch.ts";
+import { useFetch } from "../composables/fetch.ts";
 import MovieCard from "../components/MovieCard.vue";
-import {ref} from "vue";
+import { ref } from "vue";
 import Tag from "../components/Tag.vue";
 
-const { data: genres } = useFetch(`${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr`)
+const { data: genres } = useFetch(
+  `${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr`
+);
 
 const getGenres = (genres: any, id: number) => {
   if (genres) {
-    return genres.genres.find((el: { id: number | any }) => el.id.toString() === id).name
+    return genres.genres.find(
+      (el: { id: number | any }) => el.id.toString() === id
+    ).name;
   }
-}
+};
 
-const facet_open = ref(false)
+const facet_open = ref(false);
 
 const searchClient = {
-  ...algoliasearch(import.meta.env.VITE_ALGOLIA_APP, import.meta.env.VITE_ALGOLIA_API),
+  ...algoliasearch(
+    import.meta.env.VITE_ALGOLIA_APP,
+    import.meta.env.VITE_ALGOLIA_API
+  ),
   //search(requests: never[]) {
   //  if (requests.every(({ params }: { params: { query?: string } }) => !params.query)) {
   //    return Promise.resolve({
@@ -269,5 +310,4 @@ const searchClient = {
   //  return algoliasearch('4JZM1RK86D', 'dc580b87b8cab44f44bc47cf3c442d91').search(requests);
   //},
 };
-
 </script>

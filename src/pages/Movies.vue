@@ -1,6 +1,6 @@
 <template>
   <div v-if="movies && movies.results.length > 0" class="o-container">
-    <h2 class="c-h-2xl u-text-white u-mb-24">Prochainement</h2>
+    <h2 class="c-h-2xl c-h-xl-mob u-text-white u-mb-24">Prochainement</h2>
 
     <!--
     <select v-if="genres" v-model="genre">
