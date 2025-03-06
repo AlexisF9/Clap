@@ -155,6 +155,8 @@ watchEffect(() => {
 watch(tv, () => {
   if (tv?.value && tv?.value?.success === false) {
     router.push({ name: "not-found" });
+  } else if (tv.value?.name) {
+    document.title = tv.value.name;
   }
 });
 

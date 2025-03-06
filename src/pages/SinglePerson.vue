@@ -180,6 +180,8 @@ const getDate = (date: string) => {
 watch(person, () => {
   if (person?.value && person?.value?.success === false) {
     router.push({ name: "not-found" });
+  } else if (person.value?.name) {
+    document.title = person.value.name;
   }
 });
 

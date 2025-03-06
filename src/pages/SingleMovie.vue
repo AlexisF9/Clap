@@ -111,6 +111,8 @@ watchEffect(() => {
 watch(movie, () => {
   if (movie?.value && movie?.value?.success === false) {
     router.push({ name: "not-found" });
+  } else if (movie.value?.title) {
+    document.title = movie.value.title;
   }
 });
 

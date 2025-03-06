@@ -8,6 +8,8 @@ import Movies from "./pages/Movies.vue";
 import Series from "./pages/Series.vue";
 import Search from "./pages/Search.vue";
 
+export const defaultTitle = 'Clap'
+
 export const routes = [
     {
         path: '/',
@@ -17,12 +19,14 @@ export const routes = [
     {
         path: '/films',
         component: Movies,
-        name: 'movies'
+        name: 'movies',
+        meta: { title: "Films" }
     },
     {
         path: '/series',
         component: Series,
-        name: 'series'
+        name: 'series',
+        meta: { title: "Séries" }
     },
     {
         path: '/film/:id',
@@ -32,7 +36,8 @@ export const routes = [
     {
         path: '/search',
         component: Search,
-        name: 'search'
+        name: 'search',
+        meta: { title: "Recherche" }
     },
     {
         path: '/serie/:id',
@@ -58,6 +63,7 @@ export const routes = [
         path: '/404',
         component: NotFound,
         name: 'not-found',
+        meta: { title: "404" }
     },
     {
         path: '/:pathMatch(.*)*',
