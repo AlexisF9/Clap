@@ -55,7 +55,12 @@ export const routes = [
         name: 'single-person'
     },
     {
+        path: '/404',
+        component: NotFound,
+        name: 'not-found',
+    },
+    {
         path: '/:pathMatch(.*)*',
-        component: NotFound
+        redirect: { path: '/404' }
     },
 ]

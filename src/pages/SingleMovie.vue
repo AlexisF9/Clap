@@ -54,14 +54,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import SliderMovies from "../components/SliderMovies.vue";
 import SliderPersons from "../components/SliderPersons.vue";
-import { computed, Ref, ref, watchEffect } from "vue";
+import { computed, Ref, ref, watch, watchEffect } from "vue";
 import MovieBackdrop from "../components/MovieBackdrop.vue";
 import Trailer from "../components/Trailer.vue";
 import MovieInfos from "../components/MovieInfos.vue";
+
 const route = useRoute();
+const router = useRouter();
 
 const movie: Ref<{
   title: string;
@@ -75,6 +77,7 @@ const movie: Ref<{
   revenue: number;
   budget: number;
   runtime: number;
+  success?: boolean;
 } | null> = ref(null);
 const videos: Ref<{ results: [{ key: string }] } | null> = ref(null);
 const reco: Ref<{ title: string; results: [] } | null> = ref(null);
@@ -103,6 +106,12 @@ watchEffect(() => {
   fetchData(`/recommendations?language=fr-FR&page=1`, reco);
   fetchData(`/credits?language=fr-FR`, credits);
   fetchData(`/release_dates`, date);
+});
+
+watch(movie, () => {
+  if (movie?.value && movie?.value?.success === false) {
+    router.push({ name: "not-found" });
+  }
 });
 
 const getReleaseDate = computed(() => {

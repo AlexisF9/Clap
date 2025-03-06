@@ -85,14 +85,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import MovieBackdrop from "../components/MovieBackdrop.vue";
-import { ref, Ref, watchEffect } from "vue";
+import { ref, Ref, watch, watchEffect } from "vue";
 import MovieInfos from "../components/MovieInfos.vue";
 import Trailer from "../components/Trailer.vue";
 import SliderPersons from "../components/SliderPersons.vue";
 import SliderMovies from "../components/SliderMovies.vue";
+
 const route = useRoute();
+const router = useRouter();
 
 const tv: Ref<{
   name: string;
@@ -109,6 +111,7 @@ const tv: Ref<{
   seasons: any;
   networks: [];
   in_production: boolean;
+  success?: boolean;
 } | null> = ref(null);
 const videos: Ref<{ results: [{ key: string }] } | null> = ref(null);
 const credits: Ref<{ cast: [] } | any> = ref(null);
@@ -148,7 +151,12 @@ watchEffect(() => {
   fetchData(`/credits?language=fr-FR`, credits);
   fetchData(`/recommendations?language=fr-FR&page=1`, reco);
 });
-console.log(videos);
+
+watch(tv, () => {
+  if (tv?.value && tv?.value?.success === false) {
+    router.push({ name: "not-found" });
+  }
+});
 
 const fetchEp = async (number: number) => {
   try {

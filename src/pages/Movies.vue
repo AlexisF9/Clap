@@ -11,49 +11,58 @@
 
     <div class="c-movies__list">
       <MovieCard
-          v-for="movie in movies.results"
-          :key="movie.id"
-          :poster="movie.poster_path"
-          :id="movie.id"
-          :title="movie.title"
-          :note="movie.vote_average"
-          :note_count="movie.vote_count"
-          type="movie"
+        v-for="movie in movies.results"
+        :key="movie.id"
+        :poster="movie.poster_path"
+        :id="movie.id"
+        :title="movie.title"
+        :note="movie.vote_average"
+        :note_count="movie.vote_count"
+        type="movie"
       />
     </div>
 
-    <Pagination v-model:page="page" :total_pages="movies.total_pages"/>
+    <Pagination v-model:page="page" :total_pages="movies.total_pages" />
   </div>
 </template>
 
 <script setup lang="ts">
 import MovieCard from "../components/MovieCard.vue";
-import {ref, watchEffect} from "vue";
-import {useFetch} from "../composables/fetch.ts";
+import { ref, watchEffect } from "vue";
 import Pagination from "../components/Pagination.vue";
 
-const { data: genres } = useFetch(`${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr-FR`)
-console.log(genres)
+//const { data: genres } = useFetch(
+//  `${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr-FR`
+//);
 //const genre = ref('all')
 //const date = ref(null)
-const page = ref(1)
-const movies = ref<{ total_pages: number, results: { id: number, poster_path: string, title: string, vote_average: number, vote_count: number }[] }>()
+const page = ref(1);
+const movies = ref<{
+  total_pages: number;
+  results: {
+    id: number;
+    poster_path: string;
+    title: string;
+    vote_average: number;
+    vote_count: number;
+  }[];
+}>();
 
 //const firstDayOfWeek = ref('')
 //const lastDayOfWeek = ref('')
 
-const fetchData = async(url: string, elem: any) => {
-  elem.value = null
+const fetchData = async (url: string, elem: any) => {
+  elem.value = null;
 
   try {
     const response = await fetch(`${import.meta.env.VITE_TMBD_URL}` + url, {
-      headers: {Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}`}
+      headers: { Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}` },
     });
     elem.value = await response.json();
   } catch (err: any) {
-    console.log(err.toString())
+    console.log(err.toString());
   }
-}
+};
 
 //const getWeekDates = () => {
 //  const d = date.value ? new Date(date.value) : new Date();
@@ -66,6 +75,9 @@ const fetchData = async(url: string, elem: any) => {
 
 watchEffect(() => {
   //fetchData(`/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=${page.value}&region=FR&release_date.gte=${firstDayOfWeek.value}&release_date.lte=${lastDayOfWeek.value}&sort_by=primary_release_date.desc&without_genres=10770`, movies)
-  fetchData(`/movie/upcoming?language=fr-FR&page=${page.value}&region=FR`, movies)
-})
+  fetchData(
+    `/movie/upcoming?language=fr-FR&page=${page.value}&region=FR`,
+    movies
+  );
+});
 </script>

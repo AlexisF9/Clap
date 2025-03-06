@@ -117,11 +117,12 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { ref, watch, watchEffect } from "vue";
 import SliderTabsMovies from "../components/SliderTabsMovies.vue";
 
 const route = useRoute();
+const router = useRouter();
 const trendingType = ref("movie");
 const trendingType2 = ref("movie");
 
@@ -132,6 +133,7 @@ const person = ref<{
   deathday: string;
   place_of_birth: string;
   biography: string;
+  success?: boolean;
 }>();
 const movies = ref<{ cast?: any[]; crew?: any[] }>();
 const filtered_movies = ref<{ cast?: any[]; crew?: any[] }>({
@@ -174,6 +176,12 @@ const getDate = (date: string) => {
   const newDate = new Date(date);
   return newDate.toLocaleDateString();
 };
+
+watch(person, () => {
+  if (person?.value && person?.value?.success === false) {
+    router.push({ name: "not-found" });
+  }
+});
 
 watch(movies, () => {
   if (movies.value) {
