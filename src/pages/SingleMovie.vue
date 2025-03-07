@@ -117,7 +117,7 @@ watch(movie, () => {
 });
 
 watch(videos, () => {
-  if (videos.value) {
+  if (videos?.value && videos.value.results.length > 0) {
     const vid =
       videos &&
       videos.value.results.length > 0 &&
