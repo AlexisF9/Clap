@@ -2,12 +2,12 @@
   <div class="c-trailer">
     <h2 class="c-h-xl c-h-l-mob u-text-white u-mb-16">{{ title }}</h2>
     <iframe
-      :src="`https://www.youtube.com/embed/${
+      :src="`https://www.youtube-nocookie.com/embed/${
         videos.results.length > 1
           ? getTrailer(videos.results).key
           : videos.results[0].key
       }`"
-      title="YouTube video player"
+      title="YouTube trailer"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
