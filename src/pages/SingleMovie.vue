@@ -116,6 +116,22 @@ watch(movie, () => {
   }
 });
 
+watch(videos, () => {
+  if (videos.value) {
+    const vid =
+      videos &&
+      videos.value.results.length > 0 &&
+      videos.value.results.filter(
+        (el: any) =>
+          el.type === "Trailer" && el.official && el.site === "YouTube"
+      ).length > 0;
+
+    if (!vid) {
+      fetchData(`/videos`, videos);
+    }
+  }
+});
+
 const getReleaseDate = computed(() => {
   if (date && date.value && date.value.results.length > 0) {
     const fr = date.value.results.find((el: any) => el.iso_3166_1 === "FR");
