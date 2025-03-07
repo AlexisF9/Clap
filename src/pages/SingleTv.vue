@@ -20,7 +20,9 @@
     </div>
 
     <div class="o-container c-single-movie__infos">
-      <div v-if="videos && videos.results.length > 0">
+      <div
+        v-if="videos && videos.results.length > 0 && videos.results.filter((el: any) => el.type === 'Trailer' && el.official && el.site === 'YouTube').length > 0"
+      >
         <Trailer title="Bande-annonce saison 1" :videos="videos" />
       </div>
       <MovieInfos
@@ -157,6 +159,22 @@ watch(tv, () => {
     router.push({ name: "not-found" });
   } else if (tv.value?.name) {
     document.title = tv.value.name;
+  }
+});
+
+watch(videos, () => {
+  if (videos.value) {
+    const vid =
+      videos &&
+      videos.value.results.length > 0 &&
+      videos.value.results.filter(
+        (el: any) =>
+          el.type === "Trailer" && el.official && el.site === "YouTube"
+      ).length > 0;
+
+    if (!vid) {
+      fetchData(`/videos`, videos);
+    }
   }
 });
 
