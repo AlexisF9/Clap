@@ -107,7 +107,7 @@ const getDate = (date: string) => {
   //const h = Math.floor(seconds % (3600*24) / 3600);
   //const m = Math.floor(seconds % 3600 / 60);
   //const s = Math.floor(seconds % 60);
-  //console.log(d, h, m, s)
+
   return (
     newDate.toLocaleDateString() +
     (daysBefore > 1 ? ` (${daysBefore} jours)` : "")

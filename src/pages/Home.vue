@@ -84,7 +84,7 @@ const { data: movies } = useFetch(
 const { data: upcoming } = useFetch(
   `${
     import.meta.env.VITE_TMBD_URL
-  }/movie/upcoming?language=fr-FR&page=1&region=FR`
+  }/movie/upcoming?region=FR&language=fr-FR&page=1`
 );
 
 const trendingMovies: Ref<{ results: any } | null> = ref(null);
@@ -92,8 +92,6 @@ const trendingTv: Ref<{ results: any } | null> = ref(null);
 const trendingType = ref("movie");
 
 const searchBar = ref(null);
-
-//console.log(searchBar?.value?.getBoundingClientRect())
 
 const trendingFetch = async (url: string, elem: any) => {
   elem.value = null;
@@ -109,7 +107,10 @@ const trendingFetch = async (url: string, elem: any) => {
 };
 
 watchEffect(() => {
-  trendingFetch(`/trending/movie/week?language=fr-FR'`, trendingMovies);
-  trendingFetch(`/trending/tv/week?language=fr-FR'`, trendingTv);
+  trendingFetch(
+    `/trending/movie/week?region=FR&language=fr-FR'`,
+    trendingMovies
+  );
+  trendingFetch(`/trending/tv/week?region=FR&language=fr-FR'`, trendingTv);
 });
 </script>

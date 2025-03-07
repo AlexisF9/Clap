@@ -48,6 +48,6 @@ const fetchData = async (url: string, elem: any) => {
 };
 
 watchEffect(() => {
-  fetchData(`/trending/tv/week?language=fr-FR`, series);
+  fetchData(`/trending/tv/week?region=FR&language=fr-FR`, series);
 });
 </script>

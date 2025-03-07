@@ -76,7 +76,7 @@ const fetchData = async (url: string, elem: any) => {
 watchEffect(() => {
   //fetchData(`/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=${page.value}&region=FR&release_date.gte=${firstDayOfWeek.value}&release_date.lte=${lastDayOfWeek.value}&sort_by=primary_release_date.desc&without_genres=10770`, movies)
   fetchData(
-    `/movie/upcoming?language=fr-FR&page=${page.value}&region=FR`,
+    `/movie/upcoming?region=FR&language=fr-FR&page=${page.value}`,
     movies
   );
 });
