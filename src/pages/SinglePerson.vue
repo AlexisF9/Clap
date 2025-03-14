@@ -70,20 +70,16 @@
         :tabs="[
           {
             value: 'movie',
-            label: 'Film',
+            label: `Film (${filtered_movies?.cast?.length})`,
             list: filtered_movies?.cast ? filtered_movies.cast : [],
           },
           {
             value: 'tv',
-            label: 'Série',
+            label: `Série (${filtered_tv?.cast?.length})`,
             list: filtered_tv?.cast ? filtered_tv.cast : [],
           },
         ]"
-        :type="
-          filtered_movies?.cast && filtered_movies.cast.length === 0
-            ? (trendingType = 'tv')
-            : trendingType2
-        "
+        :type="trendingType2"
         v-model:select="trendingType2"
       />
 
@@ -96,20 +92,16 @@
         :tabs="[
           {
             value: 'movie',
-            label: 'Film',
+            label: `Film (${filtered_movies?.crew?.length})`,
             list: filtered_movies?.crew ? filtered_movies.crew : [],
           },
           {
             value: 'tv',
-            label: 'Série',
+            label: `Série (${filtered_tv?.crew?.length})`,
             list: filtered_tv?.crew ? filtered_tv.crew : [],
           },
         ]"
-        :type="
-          filtered_movies?.crew && filtered_movies.crew.length > 0
-            ? trendingType
-            : (trendingType = 'tv')
-        "
+        :type="trendingType"
         v-model:select="trendingType"
       />
     </div>
@@ -187,33 +179,58 @@ watch(person, () => {
 
 watch(movies, () => {
   if (movies.value) {
-    movies?.value?.crew?.forEach((el: any) => {
-      if (!filtered_movies?.value?.crew?.find((e: any) => e.id === el.id)) {
-        filtered_movies?.value?.crew?.push(el);
-      }
-    });
+    movies?.value?.crew
+      ?.sort(
+        (a, b) =>
+          new Date(b.release_date).getTime() -
+          new Date(a.release_date).getTime()
+      )
+      .forEach((el: any) => {
+        if (!filtered_movies?.value?.crew?.find((e: any) => e.id === el.id)) {
+          filtered_movies?.value?.crew?.push(el);
+        }
+      });
 
-    movies?.value?.cast?.forEach((el: any) => {
-      if (!filtered_movies?.value?.cast?.find((e: any) => e.id === el.id)) {
-        filtered_movies?.value?.cast?.push(el);
-      }
-    });
+    movies?.value?.cast
+      ?.sort(
+        (a, b) =>
+          new Date(b.release_date).getTime() -
+          new Date(a.release_date).getTime()
+      )
+      .forEach((el: any) => {
+        if (!filtered_movies?.value?.cast?.find((e: any) => e.id === el.id)) {
+          filtered_movies?.value?.cast?.push(el);
+        }
+      });
   }
 });
 
 watch(tv, () => {
+  console.log(tv.value);
   if (tv.value) {
-    tv?.value?.crew?.forEach((el: any) => {
-      if (!filtered_tv?.value?.crew?.find((e: any) => e.id === el.id)) {
-        filtered_tv?.value?.crew?.push(el);
-      }
-    });
+    tv?.value?.crew
+      ?.sort(
+        (a, b) =>
+          new Date(b.last_air_date ?? b.first_air_date).getTime() -
+          new Date(a.last_air_date ?? a.first_air_date).getTime()
+      )
+      .forEach((el: any) => {
+        if (!filtered_tv?.value?.crew?.find((e: any) => e.id === el.id)) {
+          filtered_tv?.value?.crew?.push(el);
+        }
+      });
 
-    tv?.value?.cast?.forEach((el: any) => {
-      if (!filtered_tv?.value?.cast?.find((e: any) => e.id === el.id)) {
-        filtered_tv?.value?.cast?.push(el);
-      }
-    });
+    tv?.value?.cast
+      ?.sort(
+        (a, b) =>
+          new Date(b.last_air_date ?? b.first_air_date).getTime() -
+          new Date(a.last_air_date ?? a.first_air_date).getTime()
+      )
+      .forEach((el: any) => {
+        if (!filtered_tv?.value?.cast?.find((e: any) => e.id === el.id)) {
+          filtered_tv?.value?.cast?.push(el);
+        }
+      });
   }
 });
 </script>
