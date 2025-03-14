@@ -62,7 +62,7 @@ const mergeJobsById = (data: any) => {
         (obj: { id: Number }) => obj.id === item.id
       );
       // Vérifier si le job est déjà présent avant de l'ajouter
-      if (!existingItem.job.includes(item.job)) {
+      if (!existingItem?.job?.includes(item.job)) {
         existingItem.job += ` / ${item.job}`;
       }
     }

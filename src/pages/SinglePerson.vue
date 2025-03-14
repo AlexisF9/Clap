@@ -206,7 +206,6 @@ watch(movies, () => {
 });
 
 watch(tv, () => {
-  console.log(tv.value);
   if (tv.value) {
     tv?.value?.crew
       ?.sort(
