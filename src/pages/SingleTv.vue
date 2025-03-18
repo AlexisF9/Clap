@@ -165,9 +165,6 @@ watch(tv, () => {
     document.title = tv.value.name;
   }
 });
-watch(credits, () => {
-  console.log(credits.value);
-});
 
 watch(videos, () => {
   if (videos?.value && videos.value.results.length > 0) {
