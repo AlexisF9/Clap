@@ -1,6 +1,3 @@
-.c-slider-tabs-movies {
-}
-
 .c-slider-tabs-movies__swiper {
   @include max-width(md) {
     margin: 0 calc(var(--page-gutter) * -1) ! important;

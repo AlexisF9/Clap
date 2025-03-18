@@ -42,6 +42,10 @@
       <SliderPersons title="Casting (VO)" :list="credits.cast" />
     </div>
 
+    <div v-if="credits && credits.crew.length > 0" class="o-container">
+      <SliderPersons title="Team" :list="credits.crew" />
+    </div>
+
     <div class="o-container u-text-white c-episodes-rating" v-if="seasons">
       <h2 class="c-h-2xl u-mb-24">Notation des épisodes</h2>
       <div class="c-episodes-rating__seasons">
@@ -160,6 +164,9 @@ watch(tv, () => {
   } else if (tv.value?.name) {
     document.title = tv.value.name;
   }
+});
+watch(credits, () => {
+  console.log(credits.value);
 });
 
 watch(videos, () => {

@@ -37,12 +37,14 @@
       />
     </div>
 
-    <div v-if="credits && credits.crew.length > 0" class="o-container">
-      <SliderPersons title="Team" :list="credits.crew" />
-    </div>
     <div v-if="credits && credits.cast.length > 0" class="o-container">
       <SliderPersons title="Casting (VO)" :list="credits.cast" />
     </div>
+
+    <div v-if="credits && credits.crew.length > 0" class="o-container">
+      <SliderPersons title="Team" :list="credits.crew" />
+    </div>
+
     <div v-if="reco && reco.results.length > 0" class="o-container">
       <SliderMovies
         :title="`Vous avez aimé ${movie.title} ?`"

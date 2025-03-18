@@ -13,6 +13,8 @@
 
 .c-toggle-buttons__cta {
   padding: 0.5rem $space-20;
+  transition: color var(--transition-in-out), background-color var(--transition-in-out);
+  border-radius: 10rem;
 
   @include max-width(md) {
     width: inherit;
@@ -26,6 +28,5 @@
   &.is-active {
     color: var(--toggle-buttons-active);
     background-color: var(--toggle-buttons-active-bg);
-    border-radius: 10rem;
   }
 }
