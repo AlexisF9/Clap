@@ -11,9 +11,13 @@
       }"
       :modules="[Autoplay, EffectFade]"
     >
-      <SwiperSlide v-for="movie in movies.results">
+      <SwiperSlide
+        v-for="movie in movies.results.filter((film: any) => film.backdrop_path)"
+      >
         <div class="o-container c-home__swiper-content">
-          <h2 class="c-h-2xl c-h-xl-mob u-text-white u-mb-24">
+          <h2
+            class="c-home__swiper-title c-h-2xl c-h-xl-mob u-text-white u-mb-24"
+          >
             À l'affiche...
             <span class="u-text-secondary">{{ movie.title }}</span>
           </h2>
@@ -72,7 +76,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import Search from "../components/Search.vue";
 import Cta from "../components/Cta.vue";
-import { Ref, ref, watchEffect } from "vue";
+import { Ref, ref, watch, watchEffect } from "vue";
 import SliderTabsMovies from "../components/SliderTabsMovies.vue";
 import SliderMovies from "../components/SliderMovies.vue";
 
@@ -86,6 +90,10 @@ const { data: upcoming } = useFetch(
     import.meta.env.VITE_TMBD_URL
   }/movie/upcoming?region=FR&language=fr-FR&page=1`
 );
+
+watch(movies, () => {
+  console.log(movies.value);
+});
 
 const trendingMovies: Ref<{ results: any } | null> = ref(null);
 const trendingTv: Ref<{ results: any } | null> = ref(null);
