@@ -1,8 +1,7 @@
 <template>
   <div v-if="series && series.results.length > 0" class="o-container">
-    <h2 class="c-h-2xl c-h-xl-mob u-text-white u-mb-24">
-      Populaire en ce moment
-    </h2>
+    <TypeTitle text="Séries" />
+    <h2 class="c-h-xl u-text-white u-mb-24 u-mt-64">Populaire en ce moment</h2>
 
     <div class="c-movies__list">
       <MovieCard
@@ -22,6 +21,7 @@
 <script setup lang="ts">
 import MovieCard from "../components/MovieCard.vue";
 import { ref, watchEffect } from "vue";
+import TypeTitle from "../components/TypeTitle.vue";
 
 const series = ref<{
   total_pages: number;

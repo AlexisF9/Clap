@@ -1,6 +1,7 @@
 <template>
   <div v-if="movies && movies.results.length > 0" class="o-container">
-    <h2 class="c-h-2xl c-h-xl-mob u-text-white u-mb-24">Prochainement</h2>
+    <TypeTitle text="Cinéma" />
+    <h2 class="c-h-xl u-text-white u-mb-24 u-mt-64">Prochainement</h2>
 
     <!--
     <select v-if="genres" v-model="genre">
@@ -30,6 +31,7 @@
 import MovieCard from "../components/MovieCard.vue";
 import { ref, watchEffect } from "vue";
 import Pagination from "../components/Pagination.vue";
+import TypeTitle from "../components/TypeTitle.vue";
 
 //const { data: genres } = useFetch(
 //  `${import.meta.env.VITE_TMBD_URL}/genre/movie/list?language=fr-FR`

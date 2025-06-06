@@ -40,28 +40,25 @@
     <div class="o-container c-home__main">
       <Search ref="searchBar" />
 
+      <TypeTitle class="u-mt-100" text="Cinéma" />
       <div class="u-mt-64">
-        <SliderTabsMovies
+        <SliderMovies
           title="Populaire en ce moment"
-          :tabs="[
-            {
-              value: 'movie',
-              label: 'Film',
-              list: trendingMovies ? trendingMovies.results : [],
-            },
-            {
-              value: 'tv',
-              label: 'Série',
-              list: trendingTv ? trendingTv.results : [],
-            },
-          ]"
-          :type="trendingType"
-          v-model:select="trendingType"
+          :list="trendingMovies ? trendingMovies.results : []"
         />
       </div>
 
       <div class="u-mt-64" v-if="upcoming && upcoming.results.length > 0">
         <SliderMovies title="Bientot à l'affiche" :list="upcoming.results" />
+      </div>
+
+      <TypeTitle class="u-mt-100" text="Série" />
+      <div class="u-mt-64">
+        <SliderMovies
+          title="Populaire en ce moment"
+          :list="trendingTv ? trendingTv.results : []"
+          card_type="tv"
+        />
       </div>
     </div>
   </div>
@@ -76,9 +73,9 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import Search from "../components/Search.vue";
 import Cta from "../components/Cta.vue";
-import { Ref, ref, watch, watchEffect } from "vue";
-import SliderTabsMovies from "../components/SliderTabsMovies.vue";
+import { Ref, ref, watchEffect } from "vue";
 import SliderMovies from "../components/SliderMovies.vue";
+import TypeTitle from "../components/TypeTitle.vue";
 
 const { data: movies } = useFetch(
   `${
@@ -91,13 +88,13 @@ const { data: upcoming } = useFetch(
   }/movie/upcoming?region=FR&language=fr-FR&page=1`
 );
 
-watch(movies, () => {
-  console.log(movies.value);
-});
+//watch(movies, () => {
+//  console.log(movies.value);
+//});
 
 const trendingMovies: Ref<{ results: any } | null> = ref(null);
 const trendingTv: Ref<{ results: any } | null> = ref(null);
-const trendingType = ref("movie");
+//const trendingType = ref("movie");
 
 const searchBar = ref(null);
 
