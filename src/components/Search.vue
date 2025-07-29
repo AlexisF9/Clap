@@ -4,7 +4,7 @@
       Rechercher
     </h2>
     <div v-click-outside="closeDropdown">
-      <form class="c-home-search__form" action="" @submit.prevent="fetchData">
+      <form class="c-home-search__form" action="" @submit.prevent="">
         <input
           class="c-home-search__field"
           v-model="search"
@@ -50,24 +50,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, watch } from "vue";
 
 const open = ref(false);
 const search = ref("");
 const data: any = ref(null);
 
-watchEffect(() => {
-  if (search.value) {
-    fetchData();
-  }
-});
-
-const fetchData = async () => {
+watch(search, async (newSearchValue) => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_TMBD_URL}/search/multi?query=${
-        search.value
-      }&include_adult=false&language=fr-FR&page=1`,
+      `${
+        import.meta.env.VITE_TMBD_URL
+      }/search/multi?query=${newSearchValue}&include_adult=false&language=fr-FR&page=1`,
       {
         headers: { Authorization: `Bearer ${import.meta.env.VITE_TMBD_TOKEN}` },
       }
@@ -77,7 +71,7 @@ const fetchData = async () => {
   } catch (err: any) {
     console.log(err.toString());
   }
-};
+});
 
 const closeDropdown = () => {
   open.value = false;
